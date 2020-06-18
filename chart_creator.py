@@ -195,7 +195,6 @@ def createPossessionTimeScoreChart(rows):
 
     df = pd.DataFrame(scores,columns=['time','score'])
     df = df.set_index('time')
-    print(df)
     chart = df.plot.bar()
 
     return chart

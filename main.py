@@ -50,12 +50,64 @@ home_possession_chart = createPossessionTimeScoreChart(_home_rows)
 away_possession_chart = createPossessionTimeScoreChart(_away_rows)
 
 
-plt.show()
+# plt.show()
 
 img = Image.open("HockeyCircle.png")
 draw = ImageDraw.Draw(img)
-font = ImageFont.truetype("OpenSans-Semibold.ttf", 16)
-draw.text((0, 0),"Sample Text",(0,0,0),font=font)
+font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
+# CE1
+draw.text((418, 81),"1",(255,255,255),font=font)
+draw.text((418, 122),"1",(255,255,255),font=font)
+draw.text((418, 163),"1",(255,255,255),font=font)
+draw.text((418, 204),"1",(255,255,255),font=font)
+draw.text((418, 245),"1",(255,255,255),font=font)
+draw.text((418, 286),"1",(255,255,255),font=font)
+
+# CE2
+draw.text((575, 461),"1",(255,255,255),font=font)
+draw.text((575, 502),"1",(255,255,255),font=font)
+draw.text((575, 543),"1",(255,255,255),font=font)
+draw.text((575, 584),"1",(255,255,255),font=font)
+draw.text((575, 625),"1",(255,255,255),font=font)
+draw.text((575, 666),"1",(255,255,255),font=font)
+
+# CE3
+draw.text((875, 631),"1",(255,255,255),font=font)
+draw.text((875, 672),"1",(255,255,255),font=font)
+draw.text((875, 713),"1",(255,255,255),font=font)
+draw.text((968, 631),"1",(255,255,255),font=font)
+draw.text((968, 672),"1",(255,255,255),font=font)
+draw.text((968, 713),"1",(255,255,255),font=font)
+
+# CE4
+draw.text((1292, 462),"1",(255,255,255),font=font)
+draw.text((1292, 503),"1",(255,255,255),font=font)
+draw.text((1292, 544),"1",(255,255,255),font=font)
+draw.text((1292, 585),"1",(255,255,255),font=font)
+draw.text((1292, 626),"1",(255,255,255),font=font)
+draw.text((1292, 667),"1",(255,255,255),font=font)
+
+# CE5
+draw.text((1440, 81),"1",(255,255,255),font=font)
+draw.text((1440, 122),"1",(255,255,255),font=font)
+draw.text((1440, 164),"1",(255,255,255),font=font)
+draw.text((1440, 205),"1",(255,255,255),font=font)
+draw.text((1440, 246),"1",(255,255,255),font=font)
+draw.text((1440, 287),"1",(255,255,255),font=font)
+
+# arrows
+font = ImageFont.truetype("OpenSans-Semibold.ttf", 35)
+draw.text((488, 173),"1",(0,0,0),font=font)
+draw.text((628, 425),"1",(0,0,0),font=font)
+draw.text((902, 530),"1",(0,0,0),font=font)
+draw.text((1175, 430),"1",(0,0,0),font=font)
+draw.text((1320, 173),"1",(0,0,0),font=font)
+
+font = ImageFont.truetype("OpenSans-Semibold.ttf", 45)
+draw.text((478, 800),"1",(0,0,0),font=font)
+draw.text((902, 800),"1",(0,0,0),font=font)
+draw.text((1325, 800),"1",(0,0,0),font=font)
+
 img.save('sample-out.png')
 
 # print(home_basic_metrics)

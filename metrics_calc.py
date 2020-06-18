@@ -1,4 +1,3 @@
-
 def basic_metrics_calc(rows, goals):
     basic_metrics = {
         'possession_time': 0,
