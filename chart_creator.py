@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def createBasicChart(home_data, away_data):
+def createBasicChart(home_data, away_data, title, filename):
     df = pd.DataFrame(
         {
             'OGHC': [
@@ -12,7 +12,7 @@ def createBasicChart(home_data, away_data):
                 home_data['shots'],
                 home_data['goals'],
             ],
-            'Reading': [
+            'Wimbledon': [
                 sum(away_data['ce'].values()),
                 sum(away_data['25e'].values()),
                 away_data['pc_win'],
@@ -50,9 +50,12 @@ def createBasicChart(home_data, away_data):
     plt.text(x=95,y=0.9, s=sum(away_data['25e'].values()), size=12, color='white')
     plt.text(x=95,y=-0.1, s=sum(away_data['ce'].values()), size=12, color='white')
 
+    plt.title(title)
+    plt.savefig(filename, bbox_inches='tight')
+
     return stacked_data
 
-def createTimeSeriesChart(home_rows, away_rows):
+def createTimeSeriesChart(home_rows, away_rows, title, filename):
     home_times = []
     away_times = []
     home_chart_scores = []
@@ -148,10 +151,12 @@ def createTimeSeriesChart(home_rows, away_rows):
     bigdata = hdf.append(adf)
 
     bigdata.plot.line()
+    plt.title(title)
+    plt.savefig(filename, bbox_inches='tight')
 
     return bigdata
 
-def createPossessionTimeScoreChart(rows):
+def createPossessionTimeScoreChart(rows, title, filename):
     scores = []
 
     for row in rows:
@@ -195,7 +200,7 @@ def createPossessionTimeScoreChart(rows):
 
     df = pd.DataFrame(scores,columns=['time','score'])
     df = df.set_index('time')
-    chart = df.plot.bar()
+    df.plot.bar()
 
-    return chart
-    
+    plt.title(title)
+    plt.savefig(filename, bbox_inches='tight')    
