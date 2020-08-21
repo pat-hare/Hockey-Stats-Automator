@@ -1,10 +1,39 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def createBasicChart(home_data, away_data, title, filename):
+def setColours(team):
+    if team == 'BEE':
+        return 'black'
+    elif team == 'BMU':
+        return 'midnightblue'
+    elif team == 'EG':
+        return 'darkblue'
+    elif team == 'HWHC':
+        return 'cornflowerblue'
+    elif team == 'HOL':
+        return 'red'
+    elif team == 'OGHC':
+        return 'maroon'
+    elif team == 'REA':
+        return 'lightsteelblue'
+    elif team == 'SUR':
+        return 'darkgreen'
+    elif team == 'UOD':
+        return 'purple'
+    elif team == 'UOE':
+        return 'darkgreen'
+    elif team == 'WIM':
+        return 'midnightblue'
+    elif team == 'TED':
+        return 'pink'
+
+def createBasicChart(home, away, home_data, away_data, title, filename):
+    homeCol = setColours(home)
+    awayCol = setColours(away)
+
     df = pd.DataFrame(
         {
-            'OGHC': [
+            home: [
                 sum(home_data['ce'].values()),
                 sum(home_data['25e'].values()),
                 home_data['pc_win'],
@@ -12,7 +41,7 @@ def createBasicChart(home_data, away_data, title, filename):
                 home_data['shots'],
                 home_data['goals'],
             ],
-            'Wimbledon': [
+            away: [
                 sum(away_data['ce'].values()),
                 sum(away_data['25e'].values()),
                 away_data['pc_win'],
@@ -32,7 +61,7 @@ def createBasicChart(home_data, away_data, title, filename):
     )
 
     stacked_data = df.apply(lambda x: x*100/sum(x), axis=1)
-    stacked_data = stacked_data.plot.barh(stacked=True)
+    stacked_data = stacked_data.plot.barh(stacked=True, color=[homeCol, awayCol])
     stacked_data.axes.xaxis.set_visible(False)
     plt.gca().legend(loc='upper center', bbox_to_anchor=(0.5,-0.05), ncol=2)
 
@@ -55,7 +84,10 @@ def createBasicChart(home_data, away_data, title, filename):
 
     return stacked_data
 
-def createTimeSeriesChart(home_rows, away_rows, title, filename):
+def createTimeSeriesChart(home, away, home_rows, away_rows, title, filename):
+    homeCol = setColours(home)
+    awayCol = setColours(away)
+
     home_times = []
     away_times = []
     home_chart_scores = []
@@ -87,14 +119,20 @@ def createTimeSeriesChart(home_rows, away_rows, title, filename):
         
         if {'name':'GSO'} in row['events']:
             score += 6
-        if {'name':'Shot'} in row['events']:
+        if {'name':'Shot On Target'} in row['events']:
             score += 6
         if {'name':'PC Win'} in row['events']:
             score += 6
+        if {'name':'Shot Off Target'} in row['events']:
+            score += 4
         if {'name':'PP Win'} in row['events']:
             score += 2
+        if {'name':'Foul Won'} in row['events']:
+            score += 1
         if {'name':'Lost'} in row['events']:
             score -= 1
+        if {'name':'Out of Play'} in row['events']:
+            score -= 0.5
 
         home_times.append(time)
         home_chart_scores.append(score)
@@ -125,38 +163,46 @@ def createTimeSeriesChart(home_rows, away_rows, title, filename):
         
         if {'name':'GSO'} in row['events']:
             score += 6
-        if {'name':'Shot'} in row['events']:
+        if {'name':'Shot On Target'} in row['events']:
             score += 6
         if {'name':'PC Win'} in row['events']:
             score += 6
+        if {'name':'Shot Off Target'} in row['events']:
+            score += 4
         if {'name':'PP Win'} in row['events']:
             score += 2
+        if {'name':'Foul Won'} in row['events']:
+            score += 1
         if {'name':'Lost'} in row['events']:
             score -= 1
+        if {'name':'Out of Play'} in row['events']:
+            score -= 0.5
 
         away_times.append(time)
         away_chart_scores.append(score)
 
 
-    hdf = pd.DataFrame({'time': home_times, 'home scores': home_chart_scores})
+    hdf = pd.DataFrame({'time': home_times, home + ' scores': home_chart_scores})
     hdf['time'] = hdf['time'].div(60).round(2)
     hdf = hdf.set_index('time')
     hdf = hdf.cumsum()
 
-    adf = pd.DataFrame({'time': away_times, 'away scores': away_chart_scores})
+    adf = pd.DataFrame({'time': away_times, away + ' scores': away_chart_scores})
     adf['time'] = adf['time'].div(60).round(2)
     adf = adf.set_index('time')
     adf = adf.cumsum()
 
     bigdata = hdf.append(adf)
 
-    bigdata.plot.line()
+    bigdata.plot.line(color=[homeCol, awayCol])
     plt.title(title)
     plt.savefig(filename, bbox_inches='tight')
 
     return bigdata
 
-def createPossessionTimeScoreChart(rows, title, filename):
+def createPossessionTimeScoreChart(team, rows, title, filename):
+    teamCol = setColours(team)
+
     scores = []
 
     for row in rows:
@@ -185,14 +231,20 @@ def createPossessionTimeScoreChart(rows, title, filename):
         
         if {'name':'GSO'} in row['events']:
             score += 6
-        if {'name':'Shot'} in row['events']:
+        if {'name':'Shot On Target'} in row['events']:
             score += 6
         if {'name':'PC Win'} in row['events']:
             score += 6
+        if {'name':'Shot Off Target'} in row['events']:
+            score += 4
         if {'name':'PP Win'} in row['events']:
             score += 2
+        if {'name':'Foul Won'} in row['events']:
+            score += 1
         if {'name':'Lost'} in row['events']:
             score -= 1
+        if {'name':'Out of Play'} in row['events']:
+            score -= 0.5
 
         scores.append((time,score))
 
@@ -200,7 +252,8 @@ def createPossessionTimeScoreChart(rows, title, filename):
 
     df = pd.DataFrame(scores,columns=['time','score'])
     df = df.set_index('time')
-    df.plot.bar()
+    df.plot.bar(color=teamCol)
 
     plt.title(title)
+    plt.tick_params(axis='x', which='major', labelsize=9)
     plt.savefig(filename, bbox_inches='tight')    

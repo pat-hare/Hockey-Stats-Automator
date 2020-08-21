@@ -8,6 +8,7 @@ from PIL import ImageDraw
 
 from metrics_calc import basic_metrics_calc, pp_metrics_calc, calcMetrics
 from chart_creator import createBasicChart, createTimeSeriesChart, createPossessionTimeScoreChart
+from sqlconnector import addRowToMetrics
 
 _home_rows_fg = []
 _home_rows_q1 = []
@@ -36,8 +37,15 @@ _away_pprows_q4 = []
 home_goals = 0
 away_goals = 0
 
+inputFilename = input('Filename: ')
+home = input('home: ')
+away = input('away: ')
 
-with open('WIM v OGHC.json') as json_file:
+EoQ1 = int(input('end of Q1: '))
+EoQ2 = int(input('end of Q2: '))
+EoQ3 = int(input('end of Q3: '))
+
+with open(inputFilename) as json_file:
     data = json.load(json_file)
     for r in data['rows']:
         if r['name'] == 'OGHC':
@@ -46,51 +54,51 @@ with open('WIM v OGHC.json') as json_file:
             home_goals = len(r['highlights'])
         elif r['name'] == 'OGHC PP':
             _home_pprows = r['highlights']
-        elif r['name'] == 'WIM':
+        elif r['name'] == away:
             _away_rows_fg = r['highlights']
-        elif r['name'] == 'WIM Goal':
+        elif r['name'] == away + ' Goal':
             away_goals = len(r['highlights'])
-        elif r['name'] == 'WIM PP':
+        elif r['name'] == away + ' PP':
             _away_pprows = r['highlights']
 
 for row in _home_rows_fg:
-    if row['end'] < 1114:
+    if row['end'] < EoQ1:
         _home_rows_q1.append(row)
-    elif row['end'] < 2264 and row['end'] >= 1114:
+    elif row['end'] < EoQ2 and row['end'] >= EoQ1:
         _home_rows_q2.append(row)
-    elif row['end'] < 3430 and row['end'] >= 2264:
+    elif row['end'] < EoQ3 and row['end'] >= EoQ2:
         _home_rows_q3.append(row)
-    elif row['end'] >= 3430:
+    elif row['end'] >= EoQ3:
         _home_rows_q4.append(row)
 
 for row in _away_rows_fg:
-    if row['end'] < 1114:
+    if row['end'] < EoQ1:
         _away_rows_q1.append(row)
-    elif row['end'] < 2264 and row['end'] >= 1114:
+    elif row['end'] < EoQ2 and row['end'] >= EoQ1:
         _away_rows_q2.append(row)
-    elif row['end'] < 3430 and row['end'] >= 2264:
+    elif row['end'] < EoQ3 and row['end'] >= EoQ2:
         _away_rows_q3.append(row)
-    elif row['end'] >= 3430:
+    elif row['end'] >= EoQ3:
         _away_rows_q4.append(row)
 
 for row in _home_pprows_fg:
-    if row['end'] < 1114:
+    if row['end'] < EoQ1:
         _home_pprows_q1.append(row)
-    elif row['end'] < 2264 and row['end'] >= 1114:
+    elif row['end'] < EoQ2 and row['end'] >= EoQ1:
         _home_pprows_q2.append(row)
-    elif row['end'] < 3430 and row['end'] >= 2264:
+    elif row['end'] < EoQ3 and row['end'] >= EoQ2:
         _home_pprows_q3.append(row)
-    elif row['end'] >= 3430:
+    elif row['end'] >= EoQ3:
         _home_pprows_q4.append(row)
 
 for row in _away_pprows_fg:
-    if row['end'] < 1114:
+    if row['end'] < EoQ1:
         _away_pprows_q1.append(row)
-    elif row['end'] < 2264 and row['end'] >= 1114:
+    elif row['end'] < EoQ2 and row['end'] >= EoQ1:
         _away_pprows_q2.append(row)
-    elif row['end'] < 3430 and row['end'] >= 2264:
+    elif row['end'] < EoQ3 and row['end'] >= EoQ2:
         _away_pprows_q3.append(row)
-    elif row['end'] >= 3430:
+    elif row['end'] >= EoQ3:
         _away_pprows_q4.append(row)
 
 # create full game metrics
@@ -129,34 +137,38 @@ home_pp_metrics_q4 = pp_metrics_calc(_home_pprows_q4)
 away_pp_metrics_q4 = pp_metrics_calc(_away_pprows_q4)
 home_basic_metrics_q4, away_basic_metrics_q4, home_pp_metrics_q4, away_pp_metrics_q4 = calcMetrics(home_basic_metrics_q4, away_basic_metrics_q4, home_pp_metrics_q4, away_pp_metrics_q4)
 
+# add metrics to database
+addRowToMetrics(home, home, away, home_basic_metrics, home_basic_metrics_q1, home_basic_metrics_q2,home_basic_metrics_q3, home_basic_metrics_q4)
+
+addRowToMetrics(away, home, away, away_basic_metrics, away_basic_metrics_q1, away_basic_metrics_q2,away_basic_metrics_q3, away_basic_metrics_q4)
 
 # create full game charts
-basic_chart_fg = createBasicChart(home_basic_metrics, away_basic_metrics, 'Full Game', 'fg-basic')
-time_series_chart_fg = createTimeSeriesChart(_home_rows_fg, _away_rows_fg, 'Full Game Outlet Efficiency', 'fg-oeff')
-home_possession_chart_fg = createPossessionTimeScoreChart(_home_rows_fg, 'Home Full Game Possession Outcomes', 'h-fg-pout')
-away_possession_chart_fg = createPossessionTimeScoreChart(_away_rows_fg, 'Away Full Game Possession Outcomes', 'a-fg-pout')
+basic_chart_fg = createBasicChart(home, away, home_basic_metrics, away_basic_metrics, 'Full Game', 'fg-basic')
+time_series_chart_fg = createTimeSeriesChart(home, away, _home_rows_fg, _away_rows_fg, 'Full Game Outlet Efficiency', 'fg-oeff')
+home_possession_chart_fg = createPossessionTimeScoreChart(home, _home_rows_fg, home + ' Full Game Possession Outcomes', 'h-fg-pout')
+away_possession_chart_fg = createPossessionTimeScoreChart(away, _away_rows_fg, away + ' Full Game Possession Outcomes', 'a-fg-pout')
 
-basic_chart_q1 = createBasicChart(home_basic_metrics_q1, away_basic_metrics_q1, '1st Quarter', 'q1-basic')
-time_series_chart_q1 = createTimeSeriesChart(_home_rows_q1, _away_rows_q1, '1st Quarter Outlet Efficiency', 'q1-oeff')
-home_possession_chart_q1 = createPossessionTimeScoreChart(_home_rows_q1, 'Home 1st Quarter Possession Outcomes', 'h-q1-pout')
-away_possession_chart_q1 = createPossessionTimeScoreChart(_away_rows_q1, 'Away 1st Quarter Possession Outcomes', 'a-q1-pout')
+# create quarter charts
+basic_chart_q1 = createBasicChart(home, away, home_basic_metrics_q1, away_basic_metrics_q1, '1st Quarter', 'q1-basic')
+time_series_chart_q1 = createTimeSeriesChart(home, away, _home_rows_q1, _away_rows_q1, '1st Quarter Outlet Efficiency', 'q1-oeff')
+home_possession_chart_q1 = createPossessionTimeScoreChart(home, _home_rows_q1, home + ' 1st Quarter Possession Outcomes', 'h-q1-pout')
+away_possession_chart_q1 = createPossessionTimeScoreChart(away, _away_rows_q1, away + ' 1st Quarter Possession Outcomes', 'a-q1-pout')
 
-basic_chart_q2 = createBasicChart(home_basic_metrics_q2, away_basic_metrics_q2, '2nd Quarter', 'q2-basic')
-time_series_chart_q2 = createTimeSeriesChart(_home_rows_q2, _away_rows_q2, '2nd Quarter Outlet Efficiency', 'q2-oeff')
-home_possession_chart_q2 = createPossessionTimeScoreChart(_home_rows_q2, 'Home 2nd Quarter Possession Outcomes', 'h-q2-pout')
-away_possession_chart_q2 = createPossessionTimeScoreChart(_away_rows_q2, 'Away 2nd Quarter Possession Outcomes', 'a-q2-pout')
+basic_chart_q2 = createBasicChart(home, away, home_basic_metrics_q2, away_basic_metrics_q2, '2nd Quarter', 'q2-basic')
+time_series_chart_q2 = createTimeSeriesChart(home, away, _home_rows_q2, _away_rows_q2, '2nd Quarter Outlet Efficiency', 'q2-oeff')
+home_possession_chart_q2 = createPossessionTimeScoreChart(home, _home_rows_q2, home + ' 2nd Quarter Possession Outcomes', 'h-q2-pout')
+away_possession_chart_q2 = createPossessionTimeScoreChart(away, _away_rows_q2, away + ' 2nd Quarter Possession Outcomes', 'a-q2-pout')
 
-basic_chart_q3 = createBasicChart(home_basic_metrics_q3, away_basic_metrics_q3, '3rd Quarter', 'q3-basic')
-time_series_chart_q3 = createTimeSeriesChart(_home_rows_q3, _away_rows_q3, '3rd Quarter Outlet Efficiency', 'q3-oeff')
-home_possession_chart_q3 = createPossessionTimeScoreChart(_home_rows_q3, 'Home 3rd Quarter Possession Outcomes', 'h-q3-pout')
-away_possession_chart_q3 = createPossessionTimeScoreChart(_away_rows_q3, 'Away 2rd Quarter Possession Outcomes', 'a-q3-pout')
+basic_chart_q3 = createBasicChart(home, away, home_basic_metrics_q3, away_basic_metrics_q3, '3rd Quarter', 'q3-basic')
+time_series_chart_q3 = createTimeSeriesChart(home, away, _home_rows_q3, _away_rows_q3, '3rd Quarter Outlet Efficiency', 'q3-oeff')
+home_possession_chart_q3 = createPossessionTimeScoreChart(home, _home_rows_q3, home + ' 3rd Quarter Possession Outcomes', 'h-q3-pout')
+away_possession_chart_q3 = createPossessionTimeScoreChart(away, _away_rows_q3, away + ' 3rd Quarter Possession Outcomes', 'a-q3-pout')
 
-basic_chart_q4 = createBasicChart(home_basic_metrics_q4, away_basic_metrics_q4, '4th Quarter', 'q4-basic')
-time_series_chart_q4 = createTimeSeriesChart(_home_rows_q4, _away_rows_q4, '4th Quarter Outlet Efficiency', 'q4-oeff')
-home_possession_chart_q4 = createPossessionTimeScoreChart(_home_rows_q4, 'Home 4th Quarter Possession Outcomes', 'h-q4-pout')
-away_possession_chart_q4 = createPossessionTimeScoreChart(_away_rows_q4, 'Away 4th Quarter Possession Outcomes', 'a-q4-pout')
+basic_chart_q4 = createBasicChart(home, away, home_basic_metrics_q4, away_basic_metrics_q4, '4th Quarter', 'q4-basic')
+time_series_chart_q4 = createTimeSeriesChart(home, away, _home_rows_q4, _away_rows_q4, '4th Quarter Outlet Efficiency', 'q4-oeff')
+home_possession_chart_q4 = createPossessionTimeScoreChart(home, _home_rows_q4, home + ' 4th Quarter Possession Outcomes', 'h-q4-pout')
+away_possession_chart_q4 = createPossessionTimeScoreChart(away, _away_rows_q4, away + ' 4th Quarter Possession Outcomes', 'a-q4-pout')
 
-# plt.show()
 
 img = Image.open("HockeyCircle.png")
 draw = ImageDraw.Draw(img)
@@ -215,6 +227,3 @@ draw.text((886, 800),str(home_basic_metrics['25e']['C']),(0,0,0),font=font)
 draw.text((1308, 800),str(home_basic_metrics['25e']['R']),(0,0,0),font=font)
 
 img.save('sample-out.png')
-
-# print(home_basic_metrics)
-# print(away_basic_metrics)
