@@ -4,7 +4,7 @@ from PIL import ImageDraw
 from sqlconnector import getSeasonTurnovers, getSeasonPCShots
 
 def createCircleEntryImage(basic_metrics, team):
-    img = Image.open("HockeyCircle.png")
+    img = Image.open("./assets/images/HockeyCircle.png")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
     # CE1
@@ -48,25 +48,25 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((1440, 287),"1",(255,255,255),font=font)
 
     # arrows
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 35)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
     draw.text((488, 173),str(basic_metrics['ce']['1']),(0,0,0),font=font)
     draw.text((628, 425),str(basic_metrics['ce']['2']),(0,0,0),font=font)
     draw.text((902, 530),str(basic_metrics['ce']['3']),(0,0,0),font=font)
     draw.text((1175, 430),str(basic_metrics['ce']['4']),(0,0,0),font=font)
     draw.text((1320, 173),str(basic_metrics['ce']['5']),(0,0,0),font=font)
 
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 45)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 45)
     draw.text((466, 800),str(basic_metrics['25e']['L']),(0,0,0),font=font)
     draw.text((886, 800),str(basic_metrics['25e']['C']),(0,0,0),font=font)
     draw.text((1308, 800),str(basic_metrics['25e']['R']),(0,0,0),font=font)
 
-    img.save(team + ' Circle Entries.png')
+    img.save('./assets_output/' + team + ' Circle Entries.png')
 
 def createSeasonTurnoverImage():
     turnovers = getSeasonTurnovers()
-    img = Image.open("HockeyPitch.jpg")
+    img = Image.open("./assets/images/HockeyPitch.jpg")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 65)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 65)
 
     # Expected Numbers
     draw.text((155, 320),"1",(255,255,0),font=font)
@@ -89,7 +89,7 @@ def createSeasonTurnoverImage():
     draw.text((650, 885),"1",(255,255,0),font=font)
     draw.text((885, 885),"1",(255,255,0),font=font)
 
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 25)
     # Total Wins
     draw.text((80, 305),"1",(255,255,255),font=font)
     draw.text((295, 305),"1",(255,255,255),font=font)
@@ -174,19 +174,19 @@ def createSeasonTurnoverImage():
     draw.text((760, 980),"1",(255,255,0),font=font)
     draw.text((960, 980),"1",(255,255,0),font=font)
 
-    img.save('Turnovers.jpg')
+    img.save('./assets_output/Turnovers.jpg')
 
 def createPCShotMap(input_file, output_file):
     img = Image.open(input_file).convert('RGB')
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 70)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 70)
 
     # out of the goal
     draw.text((120, 320),"1",(255,255,255),font=font)
     draw.text((622, 90),"1",(255,255,255),font=font)
     draw.text((1130, 320),"1",(255,255,255),font=font)
 
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 25)
     # top left
     draw.text((255, 230),"1",(255,255,255),font=font)
     draw.text((435, 230),"1",(255,255,255),font=font)
@@ -233,7 +233,7 @@ def createPCShotMap(input_file, output_file):
     draw.text((830, 685),"1",(0,0,0),font=font)
     draw.text((1010, 685),"1",(0,0,0),font=font)
 
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 50)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 50)
     # conceded counts
     draw.text((340, 255),"1",(255,255,255),font=font)
     draw.text((340, 430),"1",(255,255,255),font=font)
@@ -245,12 +245,12 @@ def createPCShotMap(input_file, output_file):
     draw.text((910, 430),"1",(255,255,255),font=font)
     draw.text((910, 620),"1",(0,0,0),font=font)
 
-    img.save(output_file)
+    img.save('./assets_output/' + output_file)
 
 def createShotMap(input_file, output_file):
     img = Image.open(input_file).convert('RGB')
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 35)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
     # CE1
     draw.text((165, 30),"1",(255,255,255),font=font)
     draw.text((275, 30),"1",(255,255,255),font=font)
@@ -270,7 +270,7 @@ def createShotMap(input_file, output_file):
     draw.text((575, 30),"1",(0,0,0),font=font)
     draw.text((685, 30),"1",(0,0,0),font=font)
 
-    img.save(output_file)
+    img.save('./assets_output/' + output_file)
 
 def createAllShotMap():
     createPCShotMap('ShotMapFor.png', 'Shot Map For.png')

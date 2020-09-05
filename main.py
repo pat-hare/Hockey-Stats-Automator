@@ -29,7 +29,7 @@ EoQ1 = int(input('end of Q1: '))
 EoQ2 = int(input('end of Q2: '))
 EoQ3 = int(input('end of Q3: '))
 
-with open(inputFilename) as json_file:
+with open('./assets/data/' + inputFilename) as json_file:
     data = json.load(json_file)
     for r in data['rows']:
         if r['name'] == home:
