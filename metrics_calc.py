@@ -1,6 +1,8 @@
 def basic_metrics_calc(rows, goals):
     basic_metrics = {
         'possession_time': 0,
+        '16s': 0,
+        '16sTo25E': 0,
         'goals': goals,
         'gso': 0,
         'shots': 0,
@@ -29,6 +31,15 @@ def basic_metrics_calc(rows, goals):
     }
 
     for row in rows:
+        if {'name':'16s'} in row['events']:
+            basic_metrics['16s'] += 1
+            if {'name':'25 Entry (L)'} in row['events']:
+                basic_metrics['16sTo25E'] += 1
+            elif {'name':'25 Entry (C)'} in row['events']:
+                basic_metrics['16sTo25E'] += 1
+            elif {'name':'25 Entry (R)'} in row['events']:
+                basic_metrics['16sTo25E'] += 1
+
         if {'name':'25 Entry (L)'} in row['events']:
             basic_metrics['25e']['L'] += 1
         elif {'name':'25 Entry (C)'} in row['events']:
@@ -49,7 +60,9 @@ def basic_metrics_calc(rows, goals):
         
         if {'name':'GSO'} in row['events']:
             basic_metrics['gso'] += 1
-        if {'name':'Shot'} in row['events']:
+        if {'name':'Shot On Target'} in row['events']:
+            basic_metrics['shots'] += 1
+        if {'name':'Shot Off Target'} in row['events']:
             basic_metrics['shots'] += 1
         if {'name':'PC Win'} in row['events']:
             basic_metrics['pc_win'] += 1

@@ -118,7 +118,7 @@ def createTimeSeriesChart(home, away, home_rows, away_rows, title, filename):
             score += 4
         
         if {'name':'GSO'} in row['events']:
-            score += 6
+            score += 5
         if {'name':'Shot On Target'} in row['events']:
             score += 6
         if {'name':'PC Win'} in row['events']:
@@ -230,7 +230,7 @@ def createPossessionTimeScoreChart(team, rows, title, filename):
             score += 4
         
         if {'name':'GSO'} in row['events']:
-            score += 6
+            score += 5
         if {'name':'Shot On Target'} in row['events']:
             score += 6
         if {'name':'PC Win'} in row['events']:

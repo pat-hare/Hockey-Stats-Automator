@@ -9,6 +9,7 @@ from PIL import ImageDraw
 from metrics_calc import basic_metrics_calc, pp_metrics_calc, calcMetrics
 from chart_creator import createBasicChart, createTimeSeriesChart, createPossessionTimeScoreChart
 from sqlconnector import addRowToMetrics
+from image_creator import createCircleEntryImage, createSeasonTurnoverImage
 
 _home_rows_fg = []
 _home_rows_q1 = []
@@ -48,11 +49,11 @@ EoQ3 = int(input('end of Q3: '))
 with open(inputFilename) as json_file:
     data = json.load(json_file)
     for r in data['rows']:
-        if r['name'] == 'OGHC':
+        if r['name'] == home:
             _home_rows_fg = r['highlights']
-        elif r['name'] == 'OGHC Goal':
+        elif r['name'] == home + ' Goal':
             home_goals = len(r['highlights'])
-        elif r['name'] == 'OGHC PP':
+        elif r['name'] == home + ' PP':
             _home_pprows = r['highlights']
         elif r['name'] == away:
             _away_rows_fg = r['highlights']
@@ -145,85 +146,34 @@ addRowToMetrics(away, home, away, away_basic_metrics, away_basic_metrics_q1, awa
 # create full game charts
 basic_chart_fg = createBasicChart(home, away, home_basic_metrics, away_basic_metrics, 'Full Game', 'fg-basic')
 time_series_chart_fg = createTimeSeriesChart(home, away, _home_rows_fg, _away_rows_fg, 'Full Game Outlet Efficiency', 'fg-oeff')
-home_possession_chart_fg = createPossessionTimeScoreChart(home, _home_rows_fg, home + ' Full Game Possession Outcomes', 'h-fg-pout')
-away_possession_chart_fg = createPossessionTimeScoreChart(away, _away_rows_fg, away + ' Full Game Possession Outcomes', 'a-fg-pout')
+powerplay_chart_fg = createTimeSeriesChart(home, away, _home_pprows_fg, _away_pprows_fg, 'Full Game PowerPlay Efficiency', 'fg-ppeff')
+# home_possession_chart_fg = createPossessionTimeScoreChart(home, _home_rows_fg, home + ' Full Game Possession Outcomes', 'h-fg-pout')
+# away_possession_chart_fg = createPossessionTimeScoreChart(away, _away_rows_fg, away + ' Full Game Possession Outcomes', 'a-fg-pout')
 
 # create quarter charts
 basic_chart_q1 = createBasicChart(home, away, home_basic_metrics_q1, away_basic_metrics_q1, '1st Quarter', 'q1-basic')
 time_series_chart_q1 = createTimeSeriesChart(home, away, _home_rows_q1, _away_rows_q1, '1st Quarter Outlet Efficiency', 'q1-oeff')
-home_possession_chart_q1 = createPossessionTimeScoreChart(home, _home_rows_q1, home + ' 1st Quarter Possession Outcomes', 'h-q1-pout')
-away_possession_chart_q1 = createPossessionTimeScoreChart(away, _away_rows_q1, away + ' 1st Quarter Possession Outcomes', 'a-q1-pout')
+# home_possession_chart_q1 = createPossessionTimeScoreChart(home, _home_rows_q1, home + ' 1st Quarter Possession Outcomes', 'h-q1-pout')
+# away_possession_chart_q1 = createPossessionTimeScoreChart(away, _away_rows_q1, away + ' 1st Quarter Possession Outcomes', 'a-q1-pout')
 
 basic_chart_q2 = createBasicChart(home, away, home_basic_metrics_q2, away_basic_metrics_q2, '2nd Quarter', 'q2-basic')
 time_series_chart_q2 = createTimeSeriesChart(home, away, _home_rows_q2, _away_rows_q2, '2nd Quarter Outlet Efficiency', 'q2-oeff')
-home_possession_chart_q2 = createPossessionTimeScoreChart(home, _home_rows_q2, home + ' 2nd Quarter Possession Outcomes', 'h-q2-pout')
-away_possession_chart_q2 = createPossessionTimeScoreChart(away, _away_rows_q2, away + ' 2nd Quarter Possession Outcomes', 'a-q2-pout')
+# home_possession_chart_q2 = createPossessionTimeScoreChart(home, _home_rows_q2, home + ' 2nd Quarter Possession Outcomes', 'h-q2-pout')
+# away_possession_chart_q2 = createPossessionTimeScoreChart(away, _away_rows_q2, away + ' 2nd Quarter Possession Outcomes', 'a-q2-pout')
 
 basic_chart_q3 = createBasicChart(home, away, home_basic_metrics_q3, away_basic_metrics_q3, '3rd Quarter', 'q3-basic')
 time_series_chart_q3 = createTimeSeriesChart(home, away, _home_rows_q3, _away_rows_q3, '3rd Quarter Outlet Efficiency', 'q3-oeff')
-home_possession_chart_q3 = createPossessionTimeScoreChart(home, _home_rows_q3, home + ' 3rd Quarter Possession Outcomes', 'h-q3-pout')
-away_possession_chart_q3 = createPossessionTimeScoreChart(away, _away_rows_q3, away + ' 3rd Quarter Possession Outcomes', 'a-q3-pout')
+# home_possession_chart_q3 = createPossessionTimeScoreChart(home, _home_rows_q3, home + ' 3rd Quarter Possession Outcomes', 'h-q3-pout')
+# away_possession_chart_q3 = createPossessionTimeScoreChart(away, _away_rows_q3, away + ' 3rd Quarter Possession Outcomes', 'a-q3-pout')
 
 basic_chart_q4 = createBasicChart(home, away, home_basic_metrics_q4, away_basic_metrics_q4, '4th Quarter', 'q4-basic')
 time_series_chart_q4 = createTimeSeriesChart(home, away, _home_rows_q4, _away_rows_q4, '4th Quarter Outlet Efficiency', 'q4-oeff')
-home_possession_chart_q4 = createPossessionTimeScoreChart(home, _home_rows_q4, home + ' 4th Quarter Possession Outcomes', 'h-q4-pout')
-away_possession_chart_q4 = createPossessionTimeScoreChart(away, _away_rows_q4, away + ' 4th Quarter Possession Outcomes', 'a-q4-pout')
+# home_possession_chart_q4 = createPossessionTimeScoreChart(home, _home_rows_q4, home + ' 4th Quarter Possession Outcomes', 'h-q4-pout')
+# away_possession_chart_q4 = createPossessionTimeScoreChart(away, _away_rows_q4, away + ' 4th Quarter Possession Outcomes', 'a-q4-pout')
 
+# create circle entry pictures
+createCircleEntryImage(home_basic_metrics, home)
+createCircleEntryImage(away_basic_metrics, away)
 
-img = Image.open("HockeyCircle.png")
-draw = ImageDraw.Draw(img)
-font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
-# CE1
-draw.text((418, 81),"1",(255,255,255),font=font)
-draw.text((418, 122),"1",(255,255,255),font=font)
-draw.text((418, 163),"1",(255,255,255),font=font)
-draw.text((418, 204),"1",(255,255,255),font=font)
-draw.text((418, 245),"1",(255,255,255),font=font)
-draw.text((418, 286),"1",(255,255,255),font=font)
-
-# CE2
-draw.text((575, 461),"1",(255,255,255),font=font)
-draw.text((575, 502),"1",(255,255,255),font=font)
-draw.text((575, 543),"1",(255,255,255),font=font)
-draw.text((575, 584),"1",(255,255,255),font=font)
-draw.text((575, 625),"1",(255,255,255),font=font)
-draw.text((575, 666),"1",(255,255,255),font=font)
-
-# CE3
-draw.text((875, 631),"1",(255,255,255),font=font)
-draw.text((875, 672),"1",(255,255,255),font=font)
-draw.text((875, 713),"1",(255,255,255),font=font)
-draw.text((968, 631),"1",(255,255,255),font=font)
-draw.text((968, 672),"1",(255,255,255),font=font)
-draw.text((968, 713),"1",(255,255,255),font=font)
-
-# CE4
-draw.text((1292, 462),"1",(255,255,255),font=font)
-draw.text((1292, 503),"1",(255,255,255),font=font)
-draw.text((1292, 544),"1",(255,255,255),font=font)
-draw.text((1292, 585),"1",(255,255,255),font=font)
-draw.text((1292, 626),"1",(255,255,255),font=font)
-draw.text((1292, 667),"1",(255,255,255),font=font)
-
-# CE5
-draw.text((1440, 81),"1",(255,255,255),font=font)
-draw.text((1440, 122),"1",(255,255,255),font=font)
-draw.text((1440, 164),"1",(255,255,255),font=font)
-draw.text((1440, 205),"1",(255,255,255),font=font)
-draw.text((1440, 246),"1",(255,255,255),font=font)
-draw.text((1440, 287),"1",(255,255,255),font=font)
-
-# arrows
-font = ImageFont.truetype("OpenSans-Semibold.ttf", 35)
-draw.text((488, 173),str(home_basic_metrics['ce']['1']),(0,0,0),font=font)
-draw.text((628, 425),str(home_basic_metrics['ce']['2']),(0,0,0),font=font)
-draw.text((902, 530),str(home_basic_metrics['ce']['3']),(0,0,0),font=font)
-draw.text((1175, 430),str(home_basic_metrics['ce']['4']),(0,0,0),font=font)
-draw.text((1320, 173),str(home_basic_metrics['ce']['5']),(0,0,0),font=font)
-
-font = ImageFont.truetype("OpenSans-Semibold.ttf", 45)
-draw.text((466, 800),str(home_basic_metrics['25e']['L']),(0,0,0),font=font)
-draw.text((886, 800),str(home_basic_metrics['25e']['C']),(0,0,0),font=font)
-draw.text((1308, 800),str(home_basic_metrics['25e']['R']),(0,0,0),font=font)
-
-img.save('sample-out.png')
+# create turnover chart
+createSeasonTurnoverImage()
