@@ -27,27 +27,27 @@ def setColours(team):
     elif team == 'TED':
         return 'pink'
 
-def createBasicChart(home, away, home_data, away_data, title, filename):
-    homeCol = setColours(home)
-    awayCol = setColours(away)
+def createBasicChart(home, away):
+    homeCol = setColours(home.team.teamName)
+    awayCol = setColours(away.team.teamName)
 
     df = pd.DataFrame(
         {
             home: [
-                sum(home_data['ce'].values()),
-                sum(home_data['25e'].values()),
-                home_data['pc_win'],
-                home_data['gso'],
-                home_data['shots'],
-                home_data['goals'],
+                sum(home.metrics_fg['ce'].values()),
+                sum(home.metrics_fg['25e'].values()),
+                home.metrics_fg['pc_win'],
+                home.metrics_fg['gso'],
+                home.metrics_fg['shots'],
+                home.metrics_fg['goals'],
             ],
             away: [
-                sum(away_data['ce'].values()),
-                sum(away_data['25e'].values()),
-                away_data['pc_win'],
-                away_data['gso'],
-                away_data['shots'],
-                away_data['goals'],
+                sum(away.metrics_fg['ce'].values()),
+                sum(away.metrics_fg['25e'].values()),
+                away.metrics_fg['pc_win'],
+                away.metrics_fg['gso'],
+                away.metrics_fg['shots'],
+                away.metrics_fg['goals'],
             ],
         }, 
         index = [
@@ -65,22 +65,22 @@ def createBasicChart(home, away, home_data, away_data, title, filename):
     stacked_data.axes.xaxis.set_visible(False)
     plt.gca().legend(loc='upper center', bbox_to_anchor=(0.5,-0.05), ncol=2)
 
-    plt.text(x=1,y=4.9, s=home_data['goals'], size=12, color='white')
-    plt.text(x=1,y=3.9, s=home_data['shots'], size=12, color='white')
-    plt.text(x=1,y=2.9, s=home_data['gso'], size=12, color='white')
-    plt.text(x=1,y=1.9, s=home_data['pc_win'], size=12, color='white')
-    plt.text(x=1,y=0.9, s=sum(home_data['25e'].values()), size=12, color='white')
-    plt.text(x=1,y=-0.1, s=sum(home_data['ce'].values()), size=12, color='white')
+    plt.text(x=1,y=4.9, s=home.metrics_fg['goals'], size=12, color='white')
+    plt.text(x=1,y=3.9, s=home.metrics_fg['shots'], size=12, color='white')
+    plt.text(x=1,y=2.9, s=home.metrics_fg['gso'], size=12, color='white')
+    plt.text(x=1,y=1.9, s=home.metrics_fg['pc_win'], size=12, color='white')
+    plt.text(x=1,y=0.9, s=sum(home.metrics_fg['25e'].values()), size=12, color='white')
+    plt.text(x=1,y=-0.1, s=sum(home.metrics_fg['ce'].values()), size=12, color='white')
 
-    plt.text(x=95,y=4.9, s=away_data['goals'], size=12, color='white')
-    plt.text(x=95,y=3.9, s=away_data['shots'], size=12, color='white')
-    plt.text(x=95,y=2.9, s=away_data['gso'], size=12, color='white')
-    plt.text(x=95,y=1.9, s=away_data['pc_win'], size=12, color='white')
-    plt.text(x=95,y=0.9, s=sum(away_data['25e'].values()), size=12, color='white')
-    plt.text(x=95,y=-0.1, s=sum(away_data['ce'].values()), size=12, color='white')
+    plt.text(x=95,y=4.9, s=away.metrics_fg['goals'], size=12, color='white')
+    plt.text(x=95,y=3.9, s=away.metrics_fg['shots'], size=12, color='white')
+    plt.text(x=95,y=2.9, s=away.metrics_fg['gso'], size=12, color='white')
+    plt.text(x=95,y=1.9, s=away.metrics_fg['pc_win'], size=12, color='white')
+    plt.text(x=95,y=0.9, s=sum(away.metrics_fg['25e'].values()), size=12, color='white')
+    plt.text(x=95,y=-0.1, s=sum(away.metrics_fg['ce'].values()), size=12, color='white')
 
-    plt.title(title)
-    plt.savefig(filename, bbox_inches='tight')
+    plt.title(home + " v " + away)
+    plt.savefig(home + ' v ' + away, bbox_inches='tight')
 
     return stacked_data
 

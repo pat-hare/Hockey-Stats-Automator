@@ -123,35 +123,20 @@ def pp_metrics_calc(rows):
 
     return pp_metrics
 
-def calcMetrics(home_basic_metrics, away_basic_metrics, home_pp_metrics, away_pp_metrics):
-    if home_pp_metrics['total'] == 0:
-        home_pp_metrics['PPp'] = 0
-        home_pp_metrics['PPs'] = 0
-        home_pp_metrics['PPf'] = 0
+def calcMetrics(metrics, pp_metrics):
+    if pp_metrics['total'] == 0:
+        pp_metrics['PPp'] = 0
+        pp_metrics['PPs'] = 0
+        pp_metrics['PPf'] = 0
     else:
-        home_pp_metrics['PPp'] = round((home_pp_metrics['ce'] + home_pp_metrics['gso'] + home_pp_metrics['pc_win'] + home_pp_metrics['goals']) / home_pp_metrics['total'], 2)
-        home_pp_metrics['PPs'] = round((home_pp_metrics['gso'] + home_pp_metrics['pc_win'] + home_pp_metrics['goals']) / home_pp_metrics['total'], 2)
-        home_pp_metrics['PPf'] = round(home_pp_metrics['lost'] / home_pp_metrics['total'], 2)
+        pp_metrics['PPp'] = round((pp_metrics['ce'] + pp_metrics['gso'] + pp_metrics['pc_win'] + pp_metrics['goals']) / pp_metrics['total'], 2)
+        pp_metrics['PPs'] = round((pp_metrics['gso'] + pp_metrics['pc_win'] + pp_metrics['goals']) / pp_metrics['total'], 2)
+        pp_metrics['PPf'] = round(pp_metrics['lost'] / pp_metrics['total'], 2)
 
-    if away_pp_metrics['total'] == 0:
-        away_pp_metrics['PPp'] = 0
-        away_pp_metrics['PPs'] = 0
-        away_pp_metrics['PPf'] = 0
-    else:
-        away_pp_metrics['PPp'] = round((away_pp_metrics['ce'] + away_pp_metrics['gso'] + away_pp_metrics['pc_win'] + away_pp_metrics['goals']) / away_pp_metrics['total'], 2)
-        away_pp_metrics['PPs'] = round((away_pp_metrics['gso'] + away_pp_metrics['pc_win'] + away_pp_metrics['goals']) / away_pp_metrics['total'], 2)
-        away_pp_metrics['PPf'] = round(away_pp_metrics['lost'] / away_pp_metrics['total'], 2)
+    metrics['oEff'] = (metrics['pp_win'] + pp_metrics['pp_win']) * 2 + (sum(metrics['25e'].values())) * 2 + (sum(metrics['ce'].values()) + pp_metrics['ce']) * 4 + (metrics['gso'] + pp_metrics['gso']) * 6 + (metrics['pc_win'] + pp_metrics['pc_win']) * 6 + (metrics['goals'] + pp_metrics['goals']) * 10 - metrics['lost'] - pp_metrics['lost']
 
-    home_basic_metrics['oEff'] = (home_basic_metrics['pp_win'] + home_pp_metrics['pp_win']) * 2 + (sum(home_basic_metrics['25e'].values())) * 2 + (sum(home_basic_metrics['ce'].values()) + home_pp_metrics['ce']) * 4 + (home_basic_metrics['gso'] + home_pp_metrics['gso']) * 6 + (home_basic_metrics['pc_win'] + home_pp_metrics['pc_win']) * 6 + (home_basic_metrics['goals'] + home_pp_metrics['goals']) * 10 - home_basic_metrics['lost'] - home_pp_metrics['lost']
+    metrics['25Eff'] = (metrics['pp_win'] + pp_metrics['pp_win']) + (sum(metrics['ce'].values()) + pp_metrics['ce']) * 3 + (metrics['gso'] + pp_metrics['gso']) * 6 + (metrics['pc_win'] + pp_metrics['pc_win']) * 6 + (metrics['goals'] + pp_metrics['goals']) * 10 - metrics['lost'] - pp_metrics['lost']
 
-    away_basic_metrics['oEff'] = (away_basic_metrics['pp_win'] + away_pp_metrics['pp_win']) * 2 + (sum(away_basic_metrics['25e'].values())) * 2 + (sum(away_basic_metrics['ce'].values()) + away_pp_metrics['ce']) * 4 + (away_basic_metrics['gso'] + away_pp_metrics['gso']) * 6 + (away_basic_metrics['pc_win'] + away_pp_metrics['pc_win']) * 6 + (away_basic_metrics['goals'] + away_pp_metrics['goals']) * 10 - away_basic_metrics['lost'] - away_pp_metrics['lost']
+    metrics['ceEff'] = (metrics['gso'] + pp_metrics['gso']) * 6 + (metrics['pc_win'] + pp_metrics['pc_win']) * 6 + (metrics['goals'] + pp_metrics['goals']) * 10 - ((metrics['lost'] + pp_metrics['lost']) * 2)
 
-    home_basic_metrics['25Eff'] = (home_basic_metrics['pp_win'] + home_pp_metrics['pp_win']) + (sum(home_basic_metrics['ce'].values()) + home_pp_metrics['ce']) * 3 + (home_basic_metrics['gso'] + home_pp_metrics['gso']) * 6 + (home_basic_metrics['pc_win'] + home_pp_metrics['pc_win']) * 6 + (home_basic_metrics['goals'] + home_pp_metrics['goals']) * 10 - home_basic_metrics['lost'] - home_pp_metrics['lost']
-
-    away_basic_metrics['25Eff'] = (away_basic_metrics['pp_win'] + away_pp_metrics['pp_win']) + (sum(away_basic_metrics['ce'].values()) + away_pp_metrics['ce']) * 3 + (away_basic_metrics['gso'] + away_pp_metrics['gso']) * 6 + (away_basic_metrics['pc_win'] + away_pp_metrics['pc_win']) * 6 + (away_basic_metrics['goals'] + away_pp_metrics['goals']) * 10 - away_basic_metrics['lost'] - away_pp_metrics['lost']
-
-    home_basic_metrics['ceEff'] = (home_basic_metrics['gso'] + home_pp_metrics['gso']) * 6 + (home_basic_metrics['pc_win'] + home_pp_metrics['pc_win']) * 6 + (home_basic_metrics['goals'] + home_pp_metrics['goals']) * 10 - ((home_basic_metrics['lost'] + home_pp_metrics['lost']) * 2)
-
-    away_basic_metrics['ceEff'] = (away_basic_metrics['gso'] + away_pp_metrics['gso']) * 6 + (away_basic_metrics['pc_win'] + away_pp_metrics['pc_win']) * 6 + (away_basic_metrics['goals'] + away_pp_metrics['goals']) * 10 - ((away_basic_metrics['lost'] + away_pp_metrics['lost']) * 2)
-
-    return (home_basic_metrics, away_basic_metrics, home_pp_metrics, away_pp_metrics)
+    return (metrics, pp_metrics)
