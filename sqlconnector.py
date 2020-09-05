@@ -207,19 +207,19 @@ def getMetricsFromLastGame(team):
 
     return data
 
-def addRowToMetrics(team, home, away, fg, q1, q2, q3, q4):
+def addRowToMetrics(team, home, away, metrics):
     teamId = getTeamID(team)
     matchId = getMatchID(home, away)
-    total25EFG = fg['25e']['L'] + fg['25e']['C'] + fg['25e']['R']
-    total25EQ1 = q1['25e']['L'] + q1['25e']['C'] + q1['25e']['R']
-    total25EQ2 = q2['25e']['L'] + q2['25e']['C'] + q2['25e']['R']
-    total25EQ3 = q3['25e']['L'] + q3['25e']['C'] + q3['25e']['R']
-    total25EQ4 = q4['25e']['L'] + q4['25e']['C'] + q4['25e']['R']
-    totalCEFG = fg['ce']['1'] + fg['ce']['2'] + fg['ce']['3'] + fg['ce']['4'] + fg['ce']['5']
-    totalCEQ1 = q1['ce']['1'] + q1['ce']['2'] + q1['ce']['3'] + q1['ce']['4'] + q1['ce']['5']
-    totalCEQ2 = q2['ce']['1'] + q2['ce']['2'] + q2['ce']['3'] + q2['ce']['4'] + q2['ce']['5']
-    totalCEQ3 = q3['ce']['1'] + q3['ce']['2'] + q3['ce']['3'] + q3['ce']['4'] + q3['ce']['5']
-    totalCEQ4 = q4['ce']['1'] + q4['ce']['2'] + q4['ce']['3'] + q4['ce']['4'] + q4['ce']['5']
+    total25EFG = metrics.metrics_fg['25e']['L'] + metrics.metrics_fg['25e']['C'] + metrics.metrics_fg['25e']['R']
+    total25EQ1 = metrics.metrics_q1['25e']['L'] + metrics.metrics_q1['25e']['C'] + metrics.metrics_q1['25e']['R']
+    total25EQ2 = metrics.metrics_q2['25e']['L'] + metrics.metrics_q2['25e']['C'] + metrics.metrics_q2['25e']['R']
+    total25EQ3 = metrics.metrics_q3['25e']['L'] + metrics.metrics_q3['25e']['C'] + metrics.metrics_q3['25e']['R']
+    total25EQ4 = metrics.metrics_q4['25e']['L'] + metrics.metrics_q4['25e']['C'] + metrics.metrics_q4['25e']['R']
+    totalCEFG = metrics.metrics_fg['ce']['1'] + metrics.metrics_fg['ce']['2'] + metrics.metrics_fg['ce']['3'] + metrics.metrics_fg['ce']['4'] + metrics.metrics_fg['ce']['5']
+    totalCEQ1 = metrics.metrics_q1['ce']['1'] + metrics.metrics_q1['ce']['2'] + metrics.metrics_q1['ce']['3'] + metrics.metrics_q1['ce']['4'] + metrics.metrics_q1['ce']['5']
+    totalCEQ2 = metrics.metrics_q2['ce']['1'] + metrics.metrics_q2['ce']['2'] + metrics.metrics_q2['ce']['3'] + metrics.metrics_q2['ce']['4'] + metrics.metrics_q2['ce']['5']
+    totalCEQ3 = metrics.metrics_q3['ce']['1'] + metrics.metrics_q3['ce']['2'] + metrics.metrics_q3['ce']['3'] + metrics.metrics_q3['ce']['4'] + metrics.metrics_q3['ce']['5']
+    totalCEQ4 = metrics.metrics_q4['ce']['1'] + metrics.metrics_q4['ce']['2'] + metrics.metrics_q4['ce']['3'] + metrics.metrics_q4['ce']['4'] + metrics.metrics_q4['ce']['5']
 
     cursor = conn.cursor()
 
@@ -227,7 +227,7 @@ def addRowToMetrics(team, home, away, fg, q1, q2, q3, q4):
         INSERT INTO metrics ([MatchID],[TeamID],[Goals],[Goals-Q1],[Goals-Q2],[Goals-Q3],[Goals-Q4],[Shots-FG],[Shots-Q1],[Shots-Q2],[Shots-Q3],[Shots-Q4],[GSO-FG],[GSO-Q1],[GSO-Q2],[GSO-Q3],[GSO-Q4],[25E-FG],[25E-L],[25E-C],[25E-R],[25E-Q1],[25E-Q2],[25E-Q3],[25E-Q4],[CE-FG],[CE-1],[CE-2],[CE-3],[CE-4],[CE-5],[CE-Q1],[CE-Q2],[CE-Q3],[CE-Q4],[OEff],[OEff-Q1],[OEff-Q2],[OEff-Q3],[OEff-Q4],[25Eff],[25Eff-Q1],[25Eff-Q2],[25Eff-Q3],[25Eff-Q4],[CEff],[CEff-Q1],[CEff-Q2],[CEff-Q3],[CEff-Q4],[DefAcc],[DefAcc-Q1],[DefAcc-Q2],[DefAcc-Q3],[DefAcc-Q4],[Poss-FG],[Poss-Q1],[Poss-Q2],[Poss-Q3],[Poss-Q4],[16s],[16sTo25E]) 
         
         VALUES ('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')
-    ''' % (matchId,teamId,fg['goals'],q1['goals'],q2['goals'],q3['goals'],q4['goals'],fg['shots'],q1['shots'],q2['shots'],q3['shots'],q4['shots'],fg['gso'],q1['gso'],q2['gso'],q3['gso'],q4['gso'],total25EFG,fg['25e']['L'],fg['25e']['C'],fg['25e']['R'],total25EQ1,total25EQ2,total25EQ3,total25EQ4,totalCEFG,fg['ce']['1'],fg['ce']['2'],fg['ce']['3'],fg['ce']['4'],fg['ce']['5'],totalCEQ1,totalCEQ2,totalCEQ3,totalCEQ4,fg['oEff'],q1['oEff'],q2['oEff'],q3['oEff'],q4['oEff'],fg['25Eff'],q1['25Eff'],q2['25Eff'],q3['25Eff'],q4['25Eff'],fg['ceEff'],q1['ceEff'],q2['ceEff'],q3['ceEff'],q4['ceEff'],0,0,0,0,0,fg['possession_time'],q1['possession_time'],q2['possession_time'],q3['possession_time'],q4['possession_time']))
+    ''' % (matchId,teamId,metrics.metrics_fg['goals'],metrics.metrics_q1['goals'],metrics.metrics_q2['goals'],metrics.metrics_q3['goals'],metrics.metrics_q4['goals'],metrics.metrics_fg['shots'],metrics.metrics_q1['shots'],metrics.metrics_q2['shots'],metrics.metrics_q3['shots'],metrics.metrics_q4['shots'],metrics.metrics_fg['gso'],metrics.metrics_q1['gso'],metrics.metrics_q2['gso'],metrics.metrics_q3['gso'],metrics.metrics_q4['gso'],total25EFG,metrics.metrics_fg['25e']['L'],metrics.metrics_fg['25e']['C'],metrics.metrics_fg['25e']['R'],total25EQ1,total25EQ2,total25EQ3,total25EQ4,totalCEFG,metrics.metrics_fg['ce']['1'],metrics.metrics_fg['ce']['2'],metrics.metrics_fg['ce']['3'],metrics.metrics_fg['ce']['4'],metrics.metrics_fg['ce']['5'],totalCEQ1,totalCEQ2,totalCEQ3,totalCEQ4,metrics.metrics_fg['oEff'],metrics.metrics_q1['oEff'],metrics.metrics_q2['oEff'],metrics.metrics_q3['oEff'],metrics.metrics_q4['oEff'],metrics.metrics_fg['25Eff'],metrics.metrics_q1['25Eff'],metrics.metrics_q2['25Eff'],metrics.metrics_q3['25Eff'],metrics.metrics_q4['25Eff'],metrics.metrics_fg['ceEff'],metrics.metrics_q1['ceEff'],metrics.metrics_q2['ceEff'],metrics.metrics_q3['ceEff'],metrics.metrics_q4['ceEff'],0,0,0,0,0,metrics.metrics_fg['possession_time'],metrics.metrics_q1['possession_time'],metrics.metrics_q2['possession_time'],metrics.metrics_q3['possession_time'],metrics.metrics_q4['possession_time'],0,0))
    
     conn.commit()
 

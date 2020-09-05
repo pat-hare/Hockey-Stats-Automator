@@ -33,7 +33,7 @@ def createBasicChart(home, away):
 
     df = pd.DataFrame(
         {
-            home: [
+            home.team.teamName: [
                 sum(home.metrics_fg['ce'].values()),
                 sum(home.metrics_fg['25e'].values()),
                 home.metrics_fg['pc_win'],
@@ -41,7 +41,7 @@ def createBasicChart(home, away):
                 home.metrics_fg['shots'],
                 home.metrics_fg['goals'],
             ],
-            away: [
+            away.team.teamName: [
                 sum(away.metrics_fg['ce'].values()),
                 sum(away.metrics_fg['25e'].values()),
                 away.metrics_fg['pc_win'],
@@ -79,8 +79,8 @@ def createBasicChart(home, away):
     plt.text(x=95,y=0.9, s=sum(away.metrics_fg['25e'].values()), size=12, color='white')
     plt.text(x=95,y=-0.1, s=sum(away.metrics_fg['ce'].values()), size=12, color='white')
 
-    plt.title(home + " v " + away)
-    plt.savefig(home + ' v ' + away, bbox_inches='tight')
+    plt.title(home.team.teamName + " v " + away.team.teamName)
+    plt.savefig('./assets_output/' + home.team.teamName + ' v ' + away.team.teamName, bbox_inches='tight')
 
     return stacked_data
 
@@ -196,7 +196,7 @@ def createTimeSeriesChart(home, away, home_rows, away_rows, title, filename):
 
     bigdata.plot.line(color=[homeCol, awayCol])
     plt.title(title)
-    plt.savefig(filename, bbox_inches='tight')
+    plt.savefig('./assets_output/' + filename, bbox_inches='tight')
 
     return bigdata
 
@@ -256,4 +256,4 @@ def createPossessionTimeScoreChart(team, rows, title, filename):
 
     plt.title(title)
     plt.tick_params(axis='x', which='major', labelsize=9)
-    plt.savefig(filename, bbox_inches='tight')    
+    plt.savefig('./assets_output/' + filename, bbox_inches='tight')    

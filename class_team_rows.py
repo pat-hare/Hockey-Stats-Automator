@@ -22,21 +22,21 @@ class TeamRows:
 
     def breakdown_rows(self):
         for row in self.rows:
-            if row['end'] < EoQ1:
+            if row['end'] < self.EoQ1:
                 self.rows_Q1.append(row)
-            elif row['end'] < EoQ2 and row['end'] >= EoQ1:
+            elif row['end'] < self.EoQ2 and row['end'] >= self.EoQ1:
                 self.rows_Q2.append(row)
-            elif row['end'] < EoQ3 and row['end'] >= EoQ2:
+            elif row['end'] < self.EoQ3 and row['end'] >= self.EoQ2:
                 self.rows_Q3.append(row)
-            elif row['end'] >= EoQ3:
+            elif row['end'] >= self.EoQ3:
                 self.rows_Q4.append(row)
 
         for row in self.pprows:
-            if row['end'] < EoQ1:
+            if row['end'] < self.EoQ1:
                 self.pprows_Q1.append(row)
-            elif row['end'] < EoQ2 and row['end'] >= EoQ1:
+            elif row['end'] < self.EoQ2 and row['end'] >= self.EoQ1:
                 self.pprows_Q2.append(row)
-            elif row['end'] < EoQ3 and row['end'] >= EoQ2:
+            elif row['end'] < self.EoQ3 and row['end'] >= self.EoQ2:
                 self.pprows_Q3.append(row)
-            elif row['end'] >= EoQ3:
+            elif row['end'] >= self.EoQ3:
                 self.pprows_Q4.append(row)

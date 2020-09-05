@@ -6,7 +6,7 @@ from sqlconnector import getSeasonTurnovers, getSeasonPCShots
 def createCircleEntryImage(basic_metrics, team):
     img = Image.open("./assets/images/HockeyCircle.png")
     draw = ImageDraw.Draw(img)
-    font = ImageFont.truetype("OpenSans-Semibold.ttf", 25)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 25)
     # CE1
     draw.text((418, 81),"1",(255,255,255),font=font)
     draw.text((418, 122),"1",(255,255,255),font=font)
