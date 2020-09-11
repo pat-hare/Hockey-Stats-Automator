@@ -53,8 +53,8 @@ home_team_metrics = TeamMetrics(home_rows)
 away_team_metrics = TeamMetrics(away_rows)
 
 # add metrics to database
-addRowToMetrics(home, home, away, home_team_metrics)
-addRowToMetrics(away, home, away, away_team_metrics)
+# addRowToMetrics(home, home, away, home_team_metrics)
+# addRowToMetrics(away, home, away, away_team_metrics)
 
 # create full game charts
 basic_chart_fg = createBasicChart(home_team_metrics, away_team_metrics)

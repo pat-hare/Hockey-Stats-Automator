@@ -215,11 +215,11 @@ def addRowToMetrics(team, home, away, metrics):
     total25EQ2 = metrics.metrics_q2['25e']['L'] + metrics.metrics_q2['25e']['C'] + metrics.metrics_q2['25e']['R']
     total25EQ3 = metrics.metrics_q3['25e']['L'] + metrics.metrics_q3['25e']['C'] + metrics.metrics_q3['25e']['R']
     total25EQ4 = metrics.metrics_q4['25e']['L'] + metrics.metrics_q4['25e']['C'] + metrics.metrics_q4['25e']['R']
-    totalCEFG = metrics.metrics_fg['ce']['1'] + metrics.metrics_fg['ce']['2'] + metrics.metrics_fg['ce']['3'] + metrics.metrics_fg['ce']['4'] + metrics.metrics_fg['ce']['5']
-    totalCEQ1 = metrics.metrics_q1['ce']['1'] + metrics.metrics_q1['ce']['2'] + metrics.metrics_q1['ce']['3'] + metrics.metrics_q1['ce']['4'] + metrics.metrics_q1['ce']['5']
-    totalCEQ2 = metrics.metrics_q2['ce']['1'] + metrics.metrics_q2['ce']['2'] + metrics.metrics_q2['ce']['3'] + metrics.metrics_q2['ce']['4'] + metrics.metrics_q2['ce']['5']
-    totalCEQ3 = metrics.metrics_q3['ce']['1'] + metrics.metrics_q3['ce']['2'] + metrics.metrics_q3['ce']['3'] + metrics.metrics_q3['ce']['4'] + metrics.metrics_q3['ce']['5']
-    totalCEQ4 = metrics.metrics_q4['ce']['1'] + metrics.metrics_q4['ce']['2'] + metrics.metrics_q4['ce']['3'] + metrics.metrics_q4['ce']['4'] + metrics.metrics_q4['ce']['5']
+    totalCEFG = metrics.metrics_fg['ce']['1']['total'] + metrics.metrics_fg['ce']['2']['total'] + metrics.metrics_fg['ce']['3']['total'] + metrics.metrics_fg['ce']['4']['total'] + metrics.metrics_fg['ce']['5']['total']
+    totalCEQ1 = metrics.metrics_q1['ce']['1']['total'] + metrics.metrics_q1['ce']['2']['total'] + metrics.metrics_q1['ce']['3']['total'] + metrics.metrics_q1['ce']['4']['total'] + metrics.metrics_q1['ce']['5']['total']
+    totalCEQ2 = metrics.metrics_q2['ce']['1']['total'] + metrics.metrics_q2['ce']['2']['total'] + metrics.metrics_q2['ce']['3']['total'] + metrics.metrics_q2['ce']['4']['total'] + metrics.metrics_q2['ce']['5']['total']
+    totalCEQ3 = metrics.metrics_q3['ce']['1']['total'] + metrics.metrics_q3['ce']['2']['total'] + metrics.metrics_q3['ce']['3']['total'] + metrics.metrics_q3['ce']['4']['total'] + metrics.metrics_q3['ce']['5']['total']
+    totalCEQ4 = metrics.metrics_q4['ce']['1']['total'] + metrics.metrics_q4['ce']['2']['total'] + metrics.metrics_q4['ce']['3']['total'] + metrics.metrics_q4['ce']['4']['total'] + metrics.metrics_q4['ce']['5']['total']
 
     cursor = conn.cursor()
 
