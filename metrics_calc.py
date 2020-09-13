@@ -99,6 +99,12 @@ def basic_metrics_calc(rows, goals):
                 basic_metrics['ce']['1']['pp_win'] += 1
             elif {'name':'Loss'} in row['events']:
                 basic_metrics['ce']['1']['loss'] += 1
+            elif {'name':'Out of Play'} in row['events']:
+                basic_metrics['ce']['1']['loss'] += 1
+            elif {'name':'Foul Won'} in row['events']:
+                basic_metrics['ce']['1']['loss'] += 1
+            elif {'name':'Foul Lost'} in row['events']:
+                basic_metrics['ce']['1']['loss'] += 1
         elif {'name':'CE 2'} in row['events']:
             basic_metrics['ce']['2']['total'] += 1
             if {'name':'goals'} in row['events']:
@@ -110,6 +116,12 @@ def basic_metrics_calc(rows, goals):
             elif {'name':'PP Win'} in row['events']:
                 basic_metrics['ce']['2']['pp_win'] += 1
             elif {'name':'Loss'} in row['events']:
+                basic_metrics['ce']['2']['loss'] += 1
+            elif {'name':'Out of Play'} in row['events']:
+                basic_metrics['ce']['2']['loss'] += 1
+            elif {'name':'Foul Won'} in row['events']:
+                basic_metrics['ce']['2']['loss'] += 1
+            elif {'name':'Foul Lost'} in row['events']:
                 basic_metrics['ce']['2']['loss'] += 1
         elif {'name':'CE 3'} in row['events']:
             basic_metrics['ce']['3']['total'] += 1
@@ -123,6 +135,12 @@ def basic_metrics_calc(rows, goals):
                 basic_metrics['ce']['3']['pp_win'] += 1
             elif {'name':'Loss'} in row['events']:
                 basic_metrics['ce']['3']['loss'] += 1
+            elif {'name':'Out of Play'} in row['events']:
+                basic_metrics['ce']['3']['loss'] += 1
+            elif {'name':'Foul Won'} in row['events']:
+                basic_metrics['ce']['3']['loss'] += 1
+            elif {'name':'Foul Lost'} in row['events']:
+                basic_metrics['ce']['3']['loss'] += 1
         elif {'name':'CE 4'} in row['events']:
             basic_metrics['ce']['4']['total'] += 1
             if {'name':'goals'} in row['events']:
@@ -135,6 +153,12 @@ def basic_metrics_calc(rows, goals):
                 basic_metrics['ce']['4']['pp_win'] += 1
             elif {'name':'Loss'} in row['events']:
                 basic_metrics['ce']['4']['loss'] += 1
+            elif {'name':'Out of Play'} in row['events']:
+                basic_metrics['ce']['4']['loss'] += 1
+            elif {'name':'Foul Won'} in row['events']:
+                basic_metrics['ce']['4']['loss'] += 1
+            elif {'name':'Foul Lost'} in row['events']:
+                basic_metrics['ce']['4']['loss'] += 1
         elif {'name':'CE 5'} in row['events']:
             basic_metrics['ce']['5']['total'] += 1
             if {'name':'goals'} in row['events']:
@@ -146,6 +170,12 @@ def basic_metrics_calc(rows, goals):
             elif {'name':'PP Win'} in row['events']:
                 basic_metrics['ce']['5']['pp_win'] += 1
             elif {'name':'Loss'} in row['events']:
+                basic_metrics['ce']['5']['loss'] += 1
+            elif {'name':'Out of Play'} in row['events']:
+                basic_metrics['ce']['5']['loss'] += 1
+            elif {'name':'Foul Won'} in row['events']:
+                basic_metrics['ce']['5']['loss'] += 1
+            elif {'name':'Foul Lost'} in row['events']:
                 basic_metrics['ce']['5']['loss'] += 1
         
         if {'name':'GSO'} in row['events']:
@@ -172,6 +202,7 @@ def pp_metrics_calc(rows):
         'backwards': 0,
         'ce': 0,
         'gso': 0,
+        'shots': 0,
         'pc_win': 0,
         'goals': 0,
         'lost': 0,

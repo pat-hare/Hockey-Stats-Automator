@@ -1,4 +1,5 @@
 import pyodbc
+import pandas as pd
 conn = pyodbc.connect("Driver={SQL Server Native Client 11.0};"
                       "Server=DESKTOP;"
                       "Database=db_hockey;"
@@ -35,6 +36,44 @@ def getMatchID(home, away):
 
     return matchId
 
+def getSeasonShots():
+    data = {
+        'zone1': {
+            'total': 0,
+            'onTarget': 0
+        },
+        'zone2': {
+            'total': 0,
+            'onTarget': 0
+        },
+        'zone3': {
+            'total': 0,
+            'onTarget': 0
+        },
+        'zone4': {
+            'total': 0,
+            'onTarget': 0
+        },
+        'zone5': {
+            'total': 0,
+            'onTarget': 0
+        },
+        'zone6': {
+            'total': 0,
+            'onTarget': 0
+        },
+    }
+
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM shot_map")
+    for row in cursor:
+        data['zone' + str(row[3])]['total'] += 1
+        if row[4] == 1:
+            data['zone' + str(row[3])]['onTarget'] += 1
+
+    print(data)
+    return data
+
 def getSeasonTurnovers():
     data = {
         '1.0': {},
@@ -57,19 +96,20 @@ def getSeasonTurnovers():
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM turnovers")
     for row in cursor:
-        zone = row[1]
+        zone = str(row[1])
+
         if 'PositiveWins' not in data[zone]:
-            data[zone]['PositiveWins']: row[3]
+            data[zone]['PositiveWins'] = row[3]
         else:
             data[zone]['PositiveWins'] += row[3]
         
         if 'TotalWins' not in data[zone]:
-            data[zone]['TotalWins']: row[2]
+            data[zone]['TotalWins'] = row[2]
         else:
             data[zone]['TotalWins'] += row[2]
         
         if 'GSOs' not in data[zone]:
-            data[zone]['GSOs']: row[4]
+            data[zone]['GSOs'] = row[4]
         else:
             data[zone]['GSOs'] += row[4]
 
@@ -233,12 +273,12 @@ def addRowToMetrics(team, home, away, metrics):
 
 def addTurnovers(data):
     cursor = conn.cursor()
-    for row in data:
+    for row in data.itertuples():
         cursor.execute('''
             INSERT INTO turnovers ([MatchID],[ZoneID],[TotalWins],[PositiveWins])
 
             VALUES ('%s','%s','%s','%s')
-        ''' % (row[0],row[1],row[2],row[3]))
+        ''' % (row.MatchID,row.ZoneID,row.TotalWins,row.PositiveWins))
     
     conn.commit()
 
@@ -273,12 +313,13 @@ def addPCShots(data):
 
 def addShots(data):
     cursor = conn.cursor()
-    for row in data:
+    for row in data.itertuples():
+        print(row)
         cursor.execute('''
             INSERT INTO shot_map ([MatchID],[TeamID],[CircleEntry],[ShotZone],[OnTarget],[TypeOfShot],[PlayerID])
 
             VALUES ('%s','%s','%s','%s','%s','%s','%s')
-        ''' % (row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+        ''' % (row.MatchID, row.TeamID, row.CircleEntry, row.ShotZone, row.OnTarget, row.TypeOfShot, row.PlayerID))
 
     conn.commit()
 
@@ -292,3 +333,11 @@ def addPlayerData(data):
             ''' % (row[0],row[1],row[2],row[3]))
     
     conn.commit()
+
+# data = pd.read_csv(r'D:\Development\Hockey\Stats_Automator\assets\data\TurnoversSurb.csv')
+# df = pd.DataFrame(data, columns=['MatchID','ZoneID','TotalWins','PositiveWins'])
+# print(df)
+
+# addTurnovers(df)
+
+getSeasonTurnovers()

@@ -36,19 +36,19 @@ def createBasicChart(home, away):
     df = pd.DataFrame(
         {
             home.team.teamName: [
-                homeTotalCE,
+                homeTotalCE + home.pp_metrics_fg['ce'],
                 sum(home.metrics_fg['25e'].values()),
-                home.metrics_fg['pc_win'],
-                home.metrics_fg['gso'],
-                home.metrics_fg['shots'],
+                home.metrics_fg['pc_win'] + home.pp_metrics_fg['pc_win'],
+                home.metrics_fg['gso'] + home.pp_metrics_fg['gso'],
+                home.metrics_fg['shots'] + home.pp_metrics_fg['shots'],
                 home.metrics_fg['goals'],
             ],
             away.team.teamName: [
-                awayTotalCE,
+                awayTotalCE + away.pp_metrics_fg['ce'],
                 sum(away.metrics_fg['25e'].values()),
-                away.metrics_fg['pc_win'],
-                away.metrics_fg['gso'],
-                away.metrics_fg['shots'],
+                away.metrics_fg['pc_win'] + away.pp_metrics_fg['pc_win'],
+                away.metrics_fg['gso'] + away.pp_metrics_fg['gso'],
+                away.metrics_fg['shots'] + away.pp_metrics_fg['shots'],
                 away.metrics_fg['goals'],
             ],
         }, 
@@ -68,18 +68,18 @@ def createBasicChart(home, away):
     plt.gca().legend(loc='upper center', bbox_to_anchor=(0.5,-0.05), ncol=2)
 
     plt.text(x=1,y=4.9, s=home.metrics_fg['goals'], size=12, color='white')
-    plt.text(x=1,y=3.9, s=home.metrics_fg['shots'], size=12, color='white')
-    plt.text(x=1,y=2.9, s=home.metrics_fg['gso'], size=12, color='white')
-    plt.text(x=1,y=1.9, s=home.metrics_fg['pc_win'], size=12, color='white')
+    plt.text(x=1,y=3.9, s=(home.metrics_fg['shots'] + home.pp_metrics_fg['shots']), size=12, color='white')
+    plt.text(x=1,y=2.9, s=(home.metrics_fg['gso'] + home.pp_metrics_fg['gso']), size=12, color='white')
+    plt.text(x=1,y=1.9, s=(home.metrics_fg['pc_win'] + home.pp_metrics_fg['pc_win']), size=12, color='white')
     plt.text(x=1,y=0.9, s=sum(home.metrics_fg['25e'].values()), size=12, color='white')
-    plt.text(x=1,y=-0.1, s=homeTotalCE, size=12, color='white')
+    plt.text(x=1,y=-0.1, s=(homeTotalCE + home.pp_metrics_fg['ce']), size=12, color='white')
 
     plt.text(x=95,y=4.9, s=away.metrics_fg['goals'], size=12, color='white')
-    plt.text(x=95,y=3.9, s=away.metrics_fg['shots'], size=12, color='white')
-    plt.text(x=95,y=2.9, s=away.metrics_fg['gso'], size=12, color='white')
-    plt.text(x=95,y=1.9, s=away.metrics_fg['pc_win'], size=12, color='white')
+    plt.text(x=95,y=3.9, s=(away.metrics_fg['shots'] + home.pp_metrics_fg['shots']), size=12, color='white')
+    plt.text(x=95,y=2.9, s=(away.metrics_fg['gso'] + home.pp_metrics_fg['gso']), size=12, color='white')
+    plt.text(x=95,y=1.9, s=(away.metrics_fg['pc_win'] + home.pp_metrics_fg['pc_win']), size=12, color='white')
     plt.text(x=95,y=0.9, s=sum(away.metrics_fg['25e'].values()), size=12, color='white')
-    plt.text(x=95,y=-0.1, s=awayTotalCE, size=12, color='white')
+    plt.text(x=95,y=-0.1, s=(awayTotalCE + home.pp_metrics_fg['ce']), size=12, color='white')
 
     plt.title(home.team.teamName + " v " + away.team.teamName)
     plt.savefig('./assets_output/' + home.team.teamName + ' v ' + away.team.teamName, bbox_inches='tight')

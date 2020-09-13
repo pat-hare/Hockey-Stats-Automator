@@ -12,6 +12,7 @@ from sqlconnector import addRowToMetrics
 from image_creator import createCircleEntryImage, createSeasonTurnoverImage
 from class_team_rows import TeamRows
 from class_team_metrics import TeamMetrics
+from table_creator import createInDepthTable
 
 _home_rows_fg = []
 _home_pprows_fg = []
@@ -37,13 +38,13 @@ with open('./assets/data/' + inputFilename) as json_file:
         elif r['name'] == home + ' Goal':
             home_goals = len(r['highlights'])
         elif r['name'] == home + ' PP':
-            _home_pprows = r['highlights']
+            _home_pprows_fg = r['highlights']
         elif r['name'] == away:
             _away_rows_fg = r['highlights']
         elif r['name'] == away + ' Goal':
             away_goals = len(r['highlights'])
         elif r['name'] == away + ' PP':
-            _away_pprows = r['highlights']
+            _away_pprows_fg = r['highlights']
 
 home_rows = TeamRows(home,_home_rows_fg,_home_pprows_fg,home_goals,EoQ1,EoQ2,EoQ3)
 away_rows = TeamRows(away,_away_rows_fg,_away_pprows_fg,away_goals,EoQ1,EoQ2,EoQ3)
@@ -59,6 +60,9 @@ away_team_metrics = TeamMetrics(away_rows)
 # create full game charts
 basic_chart_fg = createBasicChart(home_team_metrics, away_team_metrics)
 time_series_chart_fg = createTimeSeriesChart(home, away, home_rows.rows, away_rows.rows, 'Full Game Outlet Efficiency', 'fg-oeff')
+
+# create detailed table
+createInDepthTable(home_team_metrics, away_team_metrics)
 
 # create quarter charts
 time_series_chart_q1 = createTimeSeriesChart(home, away, home_rows.rows_Q1, away_rows.rows_Q1, '1st Quarter Outlet Efficiency', 'q1-oeff')
