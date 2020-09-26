@@ -62,9 +62,102 @@ def createCircleEntryImage(basic_metrics, team):
 
     img.save('./assets_output/' + team + ' Circle Entries.png')
 
+def createCircleEntryImagePP(basic_metrics, team):
+    img = Image.open("./assets/images/HockeyCirclePP.png")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 25)
+    # CE1
+    draw.text((418, 81),str(basic_metrics['ce']['1']['goals']),(255,255,255),font=font)
+    draw.text((418, 122),str(basic_metrics['ce']['1']['pc_win']),(255,255,255),font=font)
+    draw.text((418, 163),str(basic_metrics['ce']['1']['gso']),(255,255,255),font=font)
+    draw.text((418, 204),str(basic_metrics['ce']['1']['pp_win']),(255,255,255),font=font)
+    draw.text((418, 245),str(0),(255,255,255),font=font)
+    draw.text((418, 286),str(basic_metrics['ce']['1']['loss']),(255,255,255),font=font)
+
+    # CE2
+    draw.text((575, 461),str(basic_metrics['ce']['2']['goals']),(255,255,255),font=font)
+    draw.text((575, 502),str(basic_metrics['ce']['2']['pc_win']),(255,255,255),font=font)
+    draw.text((575, 543),str(basic_metrics['ce']['2']['gso']),(255,255,255),font=font)
+    draw.text((575, 584),str(basic_metrics['ce']['2']['pp_win']),(255,255,255),font=font)
+    draw.text((575, 625),str(0),(255,255,255),font=font)
+    draw.text((575, 666),str(basic_metrics['ce']['2']['loss']),(255,255,255),font=font)
+
+    # CE3
+    draw.text((875, 631),str(basic_metrics['ce']['3']['goals']),(255,255,255),font=font)
+    draw.text((875, 672),str(basic_metrics['ce']['3']['pc_win']),(255,255,255),font=font)
+    draw.text((875, 713),str(basic_metrics['ce']['3']['gso']),(255,255,255),font=font)
+    draw.text((968, 631),str(basic_metrics['ce']['3']['pp_win']),(255,255,255),font=font)
+    draw.text((968, 672),str(0),(255,255,255),font=font)
+    draw.text((968, 713),str(basic_metrics['ce']['3']['loss']),(255,255,255),font=font)
+
+    # CE4
+    draw.text((1292, 462),str(basic_metrics['ce']['4']['goals']),(255,255,255),font=font)
+    draw.text((1292, 503),str(basic_metrics['ce']['4']['pc_win']),(255,255,255),font=font)
+    draw.text((1292, 544),str(basic_metrics['ce']['4']['gso']),(255,255,255),font=font)
+    draw.text((1292, 585),str(basic_metrics['ce']['4']['pp_win']),(255,255,255),font=font)
+    draw.text((1292, 626),str(0),(255,255,255),font=font)
+    draw.text((1292, 667),str(basic_metrics['ce']['4']['loss']),(255,255,255),font=font)
+
+    # CE5
+    draw.text((1440, 81),str(basic_metrics['ce']['5']['goals']),(255,255,255),font=font)
+    draw.text((1440, 122),str(basic_metrics['ce']['5']['pc_win']),(255,255,255),font=font)
+    draw.text((1440, 164),str(basic_metrics['ce']['5']['gso']),(255,255,255),font=font)
+    draw.text((1440, 205),str(basic_metrics['ce']['5']['pp_win']),(255,255,255),font=font)
+    draw.text((1440, 246),str(0),(255,255,255),font=font)
+    draw.text((1440, 287),str(basic_metrics['ce']['5']['loss']),(255,255,255),font=font)
+
+    # arrows
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
+    draw.text((488, 173),str(basic_metrics['ce']['1']['total']),(0,0,0),font=font)
+    draw.text((628, 425),str(basic_metrics['ce']['2']['total']),(0,0,0),font=font)
+    draw.text((902, 530),str(basic_metrics['ce']['3']['total']),(0,0,0),font=font)
+    draw.text((1175, 430),str(basic_metrics['ce']['4']['total']),(0,0,0),font=font)
+    draw.text((1320, 173),str(basic_metrics['ce']['5']['total']),(0,0,0),font=font)
+
+    img.save('./assets_output/' + team + ' Circle Entries PP.png')
+
+def createCircleEntryImageLeftOnly(basic_metrics, team):
+    img = Image.open("./assets/images/HockeyCircleLeftOnly.png")
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 25)
+
+    # CE3
+    draw.text((875, 631),str(basic_metrics['ce']['3']['goals']),(255,255,255),font=font)
+    draw.text((875, 672),str(basic_metrics['ce']['3']['pc_win']),(255,255,255),font=font)
+    draw.text((875, 713),str(basic_metrics['ce']['3']['gso']),(255,255,255),font=font)
+    draw.text((968, 631),str(basic_metrics['ce']['3']['pp_win']),(255,255,255),font=font)
+    draw.text((968, 672),str(0),(255,255,255),font=font)
+    draw.text((968, 713),str(basic_metrics['ce']['3']['loss']),(255,255,255),font=font)
+
+    # CE4
+    draw.text((1292, 462),str(basic_metrics['ce']['4']['goals']),(255,255,255),font=font)
+    draw.text((1292, 503),str(basic_metrics['ce']['4']['pc_win']),(255,255,255),font=font)
+    draw.text((1292, 544),str(basic_metrics['ce']['4']['gso']),(255,255,255),font=font)
+    draw.text((1292, 585),str(basic_metrics['ce']['4']['pp_win']),(255,255,255),font=font)
+    draw.text((1292, 626),str(0),(255,255,255),font=font)
+    draw.text((1292, 667),str(basic_metrics['ce']['4']['loss']),(255,255,255),font=font)
+
+    # CE5
+    draw.text((1440, 81),str(basic_metrics['ce']['5']['goals']),(255,255,255),font=font)
+    draw.text((1440, 122),str(basic_metrics['ce']['5']['pc_win']),(255,255,255),font=font)
+    draw.text((1440, 164),str(basic_metrics['ce']['5']['gso']),(255,255,255),font=font)
+    draw.text((1440, 205),str(basic_metrics['ce']['5']['pp_win']),(255,255,255),font=font)
+    draw.text((1440, 246),str(0),(255,255,255),font=font)
+    draw.text((1440, 287),str(basic_metrics['ce']['5']['loss']),(255,255,255),font=font)
+
+    # arrows
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
+    draw.text((902, 530),str(basic_metrics['ce']['3']['total']),(0,0,0),font=font)
+    draw.text((1175, 430),str(basic_metrics['ce']['4']['total']),(0,0,0),font=font)
+    draw.text((1320, 173),str(basic_metrics['ce']['5']['total']),(0,0,0),font=font)
+
+    font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 45)
+    draw.text((466, 800),str(basic_metrics['25e']['L']),(0,0,0),font=font)
+
+    img.save('./assets_output/' + team + ' Circle Entries Left Only.png')
+
 def createSeasonTurnoverImage():
     turnovers = getSeasonTurnovers()
-    print(turnovers)
     img = Image.open("./assets/images/HockeyPitch.jpg")
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 65)
@@ -150,62 +243,62 @@ def createSeasonTurnoverImage():
         draw.text((930, 840),(str(int(round((turnovers['4.3']['PositiveWins']/turnovers['4.3']['TotalWins']),2)*100))+'%'),(255,255,255),font=font)
 
     # Total Goals
-    draw.text((80, 410),str(turnovers['1.0']['GSOs']),(255,255,0),font=font)
-    draw.text((295, 410),str(turnovers['2.0']['GSOs']),(255,255,0),font=font)
-    draw.text((550, 410),str(turnovers['3.0']['GSOs']),(255,255,0),font=font)
-    draw.text((820, 410),str(turnovers['4.0']['GSOs']),(255,255,0),font=font)
+    draw.text((80, 410),str(turnovers['1.0']['GSO']),(255,255,0),font=font)
+    draw.text((295, 410),str(turnovers['2.0']['GSO']),(255,255,0),font=font)
+    draw.text((550, 410),str(turnovers['3.0']['GSO']),(255,255,0),font=font)
+    draw.text((820, 410),str(turnovers['4.0']['GSO']),(255,255,0),font=font)
 
-    draw.text((80, 600),str(turnovers['1.1']['GSOs']),(255,255,0),font=font)
-    draw.text((295, 600),str(turnovers['2.1']['GSOs']),(255,255,0),font=font)
-    draw.text((550, 600),str(turnovers['3.1']['GSOs']),(255,255,0),font=font)
-    draw.text((820, 600),str(turnovers['4.1']['GSOs']),(255,255,0),font=font)
+    draw.text((80, 600),str(turnovers['1.1']['GSO']),(255,255,0),font=font)
+    draw.text((295, 600),str(turnovers['2.1']['GSO']),(255,255,0),font=font)
+    draw.text((550, 600),str(turnovers['3.1']['GSO']),(255,255,0),font=font)
+    draw.text((820, 600),str(turnovers['4.1']['GSO']),(255,255,0),font=font)
 
-    draw.text((80, 800),str(turnovers['1.2']['GSOs']),(255,255,0),font=font)
-    draw.text((295, 800),str(turnovers['2.2']['GSOs']),(255,255,0),font=font)
-    draw.text((550, 800),str(turnovers['3.2']['GSOs']),(255,255,0),font=font)
-    draw.text((820, 800),str(turnovers['4.2']['GSOs']),(255,255,0),font=font)
+    draw.text((80, 800),str(turnovers['1.2']['GSO']),(255,255,0),font=font)
+    draw.text((295, 800),str(turnovers['2.2']['GSO']),(255,255,0),font=font)
+    draw.text((550, 800),str(turnovers['3.2']['GSO']),(255,255,0),font=font)
+    draw.text((820, 800),str(turnovers['4.2']['GSO']),(255,255,0),font=font)
 
-    draw.text((80, 980),str(turnovers['1.3']['GSOs']),(255,255,0),font=font)
-    draw.text((295, 980),str(turnovers['2.3']['GSOs']),(255,255,0),font=font)
-    draw.text((550, 980),str(turnovers['3.3']['GSOs']),(255,255,0),font=font)
-    draw.text((820, 980),str(turnovers['4.3']['GSOs']),(255,255,0),font=font)
+    draw.text((80, 980),str(turnovers['1.3']['GSO']),(255,255,0),font=font)
+    draw.text((295, 980),str(turnovers['2.3']['GSO']),(255,255,0),font=font)
+    draw.text((550, 980),str(turnovers['3.3']['GSO']),(255,255,0),font=font)
+    draw.text((820, 980),str(turnovers['4.3']['GSO']),(255,255,0),font=font)
 
     # Total Goals Percentage
     if turnovers['1.0']['TotalWins'] != 0:
-        draw.text((2305, 410),(str(int(round((turnovers['1.0']['GSOs']/turnovers['1.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((2305, 410),(str(int(round((turnovers['1.0']['GSO']/turnovers['1.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['2.0']['TotalWins'] != 0:
-        draw.text((460, 410),(str(int(round((turnovers['2.0']['GSOs']/turnovers['2.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((460, 410),(str(int(round((turnovers['2.0']['GSO']/turnovers['2.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['3.0']['TotalWins'] != 0:
-        draw.text((730, 410),(str(int(round((turnovers['3.0']['GSOs']/turnovers['3.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((730, 410),(str(int(round((turnovers['3.0']['GSO']/turnovers['3.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['4.0']['TotalWins'] != 0:
-        draw.text((930, 410),(str(int(round((turnovers['3.0']['GSOs']/turnovers['3.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((930, 410),(str(int(round((turnovers['4.0']['GSO']/turnovers['4.0']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
 
     if turnovers['1.1']['TotalWins'] != 0:
-        draw.text((205, 600),(str(int(round((turnovers['1.1']['GSOs']/turnovers['1.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((205, 600),(str(int(round((turnovers['1.1']['GSO']/turnovers['1.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['2.1']['TotalWins'] != 0:
-        draw.text((460, 600),(str(int(round((turnovers['2.1']['GSOs']/turnovers['2.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((460, 600),(str(int(round((turnovers['2.1']['GSO']/turnovers['2.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['3.1']['TotalWins'] != 0:
-        draw.text((730, 600),(str(int(round((turnovers['3.1']['GSOs']/turnovers['3.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((730, 600),(str(int(round((turnovers['3.1']['GSO']/turnovers['3.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['4.1']['TotalWins'] != 0:
-        draw.text((930, 600),(str(int(round((turnovers['4.1']['GSOs']/turnovers['4.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((930, 600),(str(int(round((turnovers['4.1']['GSO']/turnovers['4.1']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
 
     if turnovers['1.2']['TotalWins'] != 0:
-        draw.text((205, 800),(str(int(round((turnovers['1.2']['GSOs']/turnovers['1.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((205, 800),(str(int(round((turnovers['1.2']['GSO']/turnovers['1.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['2.2']['TotalWins'] != 0:
-        draw.text((460, 800),(str(int(round((turnovers['2.2']['GSOs']/turnovers['2.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((460, 800),(str(int(round((turnovers['2.2']['GSO']/turnovers['2.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['3.2']['TotalWins'] != 0:
-        draw.text((730, 800),(str(int(round((turnovers['3.2']['GSOs']/turnovers['3.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((730, 800),(str(int(round((turnovers['3.2']['GSO']/turnovers['3.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['4.2']['TotalWins'] != 0:
-        draw.text((930, 800),(str(int(round((turnovers['4.2']['GSOs']/turnovers['4.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((930, 800),(str(int(round((turnovers['4.2']['GSO']/turnovers['4.2']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
 
     if turnovers['1.3']['TotalWins'] != 0:
-        draw.text((205, 980),(str(int(round((turnovers['1.3']['GSOs']/turnovers['1.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((205, 980),(str(int(round((turnovers['1.3']['GSO']/turnovers['1.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['2.3']['TotalWins'] != 0:
-        draw.text((460, 980),(str(int(round((turnovers['2.3']['GSOs']/turnovers['2.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((460, 980),(str(int(round((turnovers['2.3']['GSO']/turnovers['2.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['3.3']['TotalWins'] != 0:
-        draw.text((730, 980),(str(int(round((turnovers['3.3']['GSOs']/turnovers['3.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((730, 980),(str(int(round((turnovers['3.3']['GSO']/turnovers['3.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
     if turnovers['4.3']['TotalWins'] != 0:
-        draw.text((930, 980),(str(int(round((turnovers['4.3']['GSOs']/turnovers['4.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
+        draw.text((930, 980),(str(int(round((turnovers['4.3']['GSO']/turnovers['4.3']['TotalWins']),2)*100))+'%'),(255,255,0),font=font)
 
     img.save('./assets_output/Turnovers.jpg')
 
@@ -282,7 +375,6 @@ def createPCShotMap(input_file, output_file):
 
 def createShotMap(input_file, output_file):
     data = getSeasonShots()
-    print(data)
     img = Image.open(input_file).convert('RGB')
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
@@ -314,3 +406,5 @@ def createAllShotMap():
 def createAllPCShotMap():
     createPCShotMap('PCA.png','PCA Shot Map.png')
     createPCShotMap('PCD.png','PCD Shot Map.png')
+
+createSeasonTurnoverImage()

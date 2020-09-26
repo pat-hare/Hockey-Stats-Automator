@@ -71,7 +71,6 @@ def getSeasonShots():
         if row[4] == 1:
             data['zone' + str(row[3])]['onTarget'] += 1
 
-    print(data)
     return data
 
 def getSeasonTurnovers():
@@ -94,7 +93,8 @@ def getSeasonTurnovers():
         '4.3': {},
     }
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM turnovers")
+    # cursor.execute("SELECT * FROM turnovers WHERE MatchID IN (0,26,45,93)")
+    cursor.execute("SELECT * FROM turnovers WHERE MatchID = 93")
     for row in cursor:
         zone = str(row[1])
 
@@ -108,10 +108,10 @@ def getSeasonTurnovers():
         else:
             data[zone]['TotalWins'] += row[2]
         
-        if 'GSOs' not in data[zone]:
-            data[zone]['GSOs'] = row[4]
+        if 'GSO' not in data[zone]:
+            data[zone]['GSO'] = row[4]
         else:
-            data[zone]['GSOs'] += row[4]
+            data[zone]['GSO'] += row[4]
 
     return data
 
@@ -275,10 +275,10 @@ def addTurnovers(data):
     cursor = conn.cursor()
     for row in data.itertuples():
         cursor.execute('''
-            INSERT INTO turnovers ([MatchID],[ZoneID],[TotalWins],[PositiveWins])
+            INSERT INTO turnovers ([MatchID],[ZoneID],[TotalWins],[PositiveWins],[GSO])
 
-            VALUES ('%s','%s','%s','%s')
-        ''' % (row.MatchID,row.ZoneID,row.TotalWins,row.PositiveWins))
+            VALUES ('%s','%s','%s','%s','%s')
+        ''' % (row.MatchID,row.ZoneID,row.TotalWins,row.PositiveWins,row.GSO))
     
     conn.commit()
 
@@ -314,7 +314,6 @@ def addPCShots(data):
 def addShots(data):
     cursor = conn.cursor()
     for row in data.itertuples():
-        print(row)
         cursor.execute('''
             INSERT INTO shot_map ([MatchID],[TeamID],[CircleEntry],[ShotZone],[OnTarget],[TypeOfShot],[PlayerID])
 
@@ -334,10 +333,10 @@ def addPlayerData(data):
     
     conn.commit()
 
-# data = pd.read_csv(r'D:\Development\Hockey\Stats_Automator\assets\data\TurnoversSurb.csv')
-# df = pd.DataFrame(data, columns=['MatchID','ZoneID','TotalWins','PositiveWins'])
+# data = pd.read_csv(r'D:\Development\Hockey\Stats_Automator\assets\data\TurnoversHOLG1.csv')
+# df = pd.DataFrame(data, columns=['MatchID','ZoneID','TotalWins','PositiveWins','GSO'])
 # print(df)
 
 # addTurnovers(df)
 
-getSeasonTurnovers()
+# getSeasonTurnovers()

@@ -9,7 +9,7 @@ from PIL import ImageDraw
 from metrics_calc import basic_metrics_calc, pp_metrics_calc, calcMetrics
 from chart_creator import createBasicChart, createTimeSeriesChart, createPossessionTimeScoreChart
 from sqlconnector import addRowToMetrics
-from image_creator import createCircleEntryImage, createSeasonTurnoverImage
+from image_creator import createCircleEntryImage, createSeasonTurnoverImage, createCircleEntryImageLeftOnly, createCircleEntryImagePP
 from class_team_rows import TeamRows
 from class_team_metrics import TeamMetrics
 from table_creator import createInDepthTable
@@ -73,6 +73,10 @@ time_series_chart_q4 = createTimeSeriesChart(home, away, home_rows.rows_Q4, away
 # create circle entry pictures
 createCircleEntryImage(home_team_metrics.metrics_fg, home)
 createCircleEntryImage(away_team_metrics.metrics_fg, away)
+createCircleEntryImageLeftOnly(away_team_metrics.metrics_fg, away)
+# create pp circle entry pictures
+createCircleEntryImagePP(home_team_metrics.pp_metrics_fg, home)
+createCircleEntryImagePP(away_team_metrics.pp_metrics_fg, away)
 
 # create turnover chart
 createSeasonTurnoverImage()
