@@ -46,8 +46,8 @@ with open('./assets/data/' + inputFilename) as json_file:
         elif r['name'] == away + ' PP':
             _away_pprows_fg = r['highlights']
 
-home_rows = TeamRows(home,_home_rows_fg,_home_pprows_fg,home_goals,EoQ1,EoQ2,EoQ3)
-away_rows = TeamRows(away,_away_rows_fg,_away_pprows_fg,away_goals,EoQ1,EoQ2,EoQ3)
+home_rows = TeamRows(home,_home_rows_fg,_home_pprows_fg,EoQ1,EoQ2,EoQ3)
+away_rows = TeamRows(away,_away_rows_fg,_away_pprows_fg,EoQ1,EoQ2,EoQ3)
 
 # create full game metrics
 home_team_metrics = TeamMetrics(home_rows)
@@ -58,7 +58,8 @@ away_team_metrics = TeamMetrics(away_rows)
 # addRowToMetrics(away, home, away, away_team_metrics)
 
 # create full game charts
-basic_chart_fg = createBasicChart(home_team_metrics, away_team_metrics)
+print(home_team_metrics.metrics_fg)
+basic_chart_fg = createBasicChart(home_team_metrics, away_team_metrics, home_goals, away_goals)
 time_series_chart_fg = createTimeSeriesChart(home, away, home_rows.rows, away_rows.rows, 'Full Game Outlet Efficiency', 'fg-oeff')
 
 # create detailed table
@@ -79,4 +80,4 @@ createCircleEntryImagePP(home_team_metrics.pp_metrics_fg, home)
 createCircleEntryImagePP(away_team_metrics.pp_metrics_fg, away)
 
 # create turnover chart
-createSeasonTurnoverImage()
+# createSeasonTurnoverImage()

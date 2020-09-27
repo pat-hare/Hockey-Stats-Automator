@@ -1,9 +1,8 @@
 # store team rows
 
 class TeamRows:
-    def __init__(self, teamName, rows, pprows, goals, EoQ1, EoQ2, EoQ3):
+    def __init__(self, teamName, rows, pprows, EoQ1, EoQ2, EoQ3):
         self.teamName = teamName
-        self.goals = goals
         self.EoQ1 = EoQ1
         self.EoQ2 = EoQ2
         self.EoQ3 = EoQ3

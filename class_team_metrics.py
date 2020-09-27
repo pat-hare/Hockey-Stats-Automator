@@ -18,11 +18,11 @@ class TeamMetrics:
         self.createMetrics()
 
     def createMetrics(self):
-        self.metrics_fg = basic_metrics_calc(self.team.rows, self.team.goals)
-        self.metrics_q1 = basic_metrics_calc(self.team.rows_Q1, 0)
-        self.metrics_q2 = basic_metrics_calc(self.team.rows_Q2, 0)
-        self.metrics_q3 = basic_metrics_calc(self.team.rows_Q3, 0)
-        self.metrics_q4 = basic_metrics_calc(self.team.rows_Q4, 0)
+        self.metrics_fg = basic_metrics_calc(self.team.rows)
+        self.metrics_q1 = basic_metrics_calc(self.team.rows_Q1)
+        self.metrics_q2 = basic_metrics_calc(self.team.rows_Q2)
+        self.metrics_q3 = basic_metrics_calc(self.team.rows_Q3)
+        self.metrics_q4 = basic_metrics_calc(self.team.rows_Q4)
         
         self.pp_metrics_fg = pp_metrics_calc(self.team.pprows)
         self.pp_metrics_q1 = pp_metrics_calc(self.team.pprows_Q1)

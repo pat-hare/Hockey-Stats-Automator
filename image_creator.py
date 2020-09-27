@@ -13,7 +13,7 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((418, 163),str(basic_metrics['ce']['1']['gso']),(255,255,255),font=font)
     draw.text((418, 204),str(basic_metrics['ce']['1']['pp_win']),(255,255,255),font=font)
     draw.text((418, 245),str(0),(255,255,255),font=font)
-    draw.text((418, 286),str(basic_metrics['ce']['1']['loss']),(255,255,255),font=font)
+    draw.text((418, 286),str(basic_metrics['ce']['1']['lost']),(255,255,255),font=font)
 
     # CE2
     draw.text((575, 461),str(basic_metrics['ce']['2']['goals']),(255,255,255),font=font)
@@ -21,7 +21,7 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((575, 543),str(basic_metrics['ce']['2']['gso']),(255,255,255),font=font)
     draw.text((575, 584),str(basic_metrics['ce']['2']['pp_win']),(255,255,255),font=font)
     draw.text((575, 625),str(0),(255,255,255),font=font)
-    draw.text((575, 666),str(basic_metrics['ce']['2']['loss']),(255,255,255),font=font)
+    draw.text((575, 666),str(basic_metrics['ce']['2']['lost']),(255,255,255),font=font)
 
     # CE3
     draw.text((875, 631),str(basic_metrics['ce']['3']['goals']),(255,255,255),font=font)
@@ -29,7 +29,7 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((875, 713),str(basic_metrics['ce']['3']['gso']),(255,255,255),font=font)
     draw.text((968, 631),str(basic_metrics['ce']['3']['pp_win']),(255,255,255),font=font)
     draw.text((968, 672),str(0),(255,255,255),font=font)
-    draw.text((968, 713),str(basic_metrics['ce']['3']['loss']),(255,255,255),font=font)
+    draw.text((968, 713),str(basic_metrics['ce']['3']['lost']),(255,255,255),font=font)
 
     # CE4
     draw.text((1292, 462),str(basic_metrics['ce']['4']['goals']),(255,255,255),font=font)
@@ -37,7 +37,7 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((1292, 544),str(basic_metrics['ce']['4']['gso']),(255,255,255),font=font)
     draw.text((1292, 585),str(basic_metrics['ce']['4']['pp_win']),(255,255,255),font=font)
     draw.text((1292, 626),str(0),(255,255,255),font=font)
-    draw.text((1292, 667),str(basic_metrics['ce']['4']['loss']),(255,255,255),font=font)
+    draw.text((1292, 667),str(basic_metrics['ce']['4']['lost']),(255,255,255),font=font)
 
     # CE5
     draw.text((1440, 81),str(basic_metrics['ce']['5']['goals']),(255,255,255),font=font)
@@ -45,7 +45,7 @@ def createCircleEntryImage(basic_metrics, team):
     draw.text((1440, 164),str(basic_metrics['ce']['5']['gso']),(255,255,255),font=font)
     draw.text((1440, 205),str(basic_metrics['ce']['5']['pp_win']),(255,255,255),font=font)
     draw.text((1440, 246),str(0),(255,255,255),font=font)
-    draw.text((1440, 287),str(basic_metrics['ce']['5']['loss']),(255,255,255),font=font)
+    draw.text((1440, 287),str(basic_metrics['ce']['5']['lost']),(255,255,255),font=font)
 
     # arrows
     font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
@@ -72,7 +72,7 @@ def createCircleEntryImagePP(basic_metrics, team):
     draw.text((418, 163),str(basic_metrics['ce']['1']['gso']),(255,255,255),font=font)
     draw.text((418, 204),str(basic_metrics['ce']['1']['pp_win']),(255,255,255),font=font)
     draw.text((418, 245),str(0),(255,255,255),font=font)
-    draw.text((418, 286),str(basic_metrics['ce']['1']['loss']),(255,255,255),font=font)
+    draw.text((418, 286),str(basic_metrics['ce']['1']['lost']),(255,255,255),font=font)
 
     # CE2
     draw.text((575, 461),str(basic_metrics['ce']['2']['goals']),(255,255,255),font=font)
@@ -80,7 +80,7 @@ def createCircleEntryImagePP(basic_metrics, team):
     draw.text((575, 543),str(basic_metrics['ce']['2']['gso']),(255,255,255),font=font)
     draw.text((575, 584),str(basic_metrics['ce']['2']['pp_win']),(255,255,255),font=font)
     draw.text((575, 625),str(0),(255,255,255),font=font)
-    draw.text((575, 666),str(basic_metrics['ce']['2']['loss']),(255,255,255),font=font)
+    draw.text((575, 666),str(basic_metrics['ce']['2']['lost']),(255,255,255),font=font)
 
     # CE3
     draw.text((875, 631),str(basic_metrics['ce']['3']['goals']),(255,255,255),font=font)
@@ -88,7 +88,7 @@ def createCircleEntryImagePP(basic_metrics, team):
     draw.text((875, 713),str(basic_metrics['ce']['3']['gso']),(255,255,255),font=font)
     draw.text((968, 631),str(basic_metrics['ce']['3']['pp_win']),(255,255,255),font=font)
     draw.text((968, 672),str(0),(255,255,255),font=font)
-    draw.text((968, 713),str(basic_metrics['ce']['3']['loss']),(255,255,255),font=font)
+    draw.text((968, 713),str(basic_metrics['ce']['3']['lost']),(255,255,255),font=font)
 
     # CE4
     draw.text((1292, 462),str(basic_metrics['ce']['4']['goals']),(255,255,255),font=font)
@@ -96,7 +96,7 @@ def createCircleEntryImagePP(basic_metrics, team):
     draw.text((1292, 544),str(basic_metrics['ce']['4']['gso']),(255,255,255),font=font)
     draw.text((1292, 585),str(basic_metrics['ce']['4']['pp_win']),(255,255,255),font=font)
     draw.text((1292, 626),str(0),(255,255,255),font=font)
-    draw.text((1292, 667),str(basic_metrics['ce']['4']['loss']),(255,255,255),font=font)
+    draw.text((1292, 667),str(basic_metrics['ce']['4']['lost']),(255,255,255),font=font)
 
     # CE5
     draw.text((1440, 81),str(basic_metrics['ce']['5']['goals']),(255,255,255),font=font)
@@ -104,7 +104,7 @@ def createCircleEntryImagePP(basic_metrics, team):
     draw.text((1440, 164),str(basic_metrics['ce']['5']['gso']),(255,255,255),font=font)
     draw.text((1440, 205),str(basic_metrics['ce']['5']['pp_win']),(255,255,255),font=font)
     draw.text((1440, 246),str(0),(255,255,255),font=font)
-    draw.text((1440, 287),str(basic_metrics['ce']['5']['loss']),(255,255,255),font=font)
+    draw.text((1440, 287),str(basic_metrics['ce']['5']['lost']),(255,255,255),font=font)
 
     # arrows
     font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
@@ -127,7 +127,7 @@ def createCircleEntryImageLeftOnly(basic_metrics, team):
     draw.text((875, 713),str(basic_metrics['ce']['3']['gso']),(255,255,255),font=font)
     draw.text((968, 631),str(basic_metrics['ce']['3']['pp_win']),(255,255,255),font=font)
     draw.text((968, 672),str(0),(255,255,255),font=font)
-    draw.text((968, 713),str(basic_metrics['ce']['3']['loss']),(255,255,255),font=font)
+    draw.text((968, 713),str(basic_metrics['ce']['3']['lost']),(255,255,255),font=font)
 
     # CE4
     draw.text((1292, 462),str(basic_metrics['ce']['4']['goals']),(255,255,255),font=font)
@@ -135,7 +135,7 @@ def createCircleEntryImageLeftOnly(basic_metrics, team):
     draw.text((1292, 544),str(basic_metrics['ce']['4']['gso']),(255,255,255),font=font)
     draw.text((1292, 585),str(basic_metrics['ce']['4']['pp_win']),(255,255,255),font=font)
     draw.text((1292, 626),str(0),(255,255,255),font=font)
-    draw.text((1292, 667),str(basic_metrics['ce']['4']['loss']),(255,255,255),font=font)
+    draw.text((1292, 667),str(basic_metrics['ce']['4']['lost']),(255,255,255),font=font)
 
     # CE5
     draw.text((1440, 81),str(basic_metrics['ce']['5']['goals']),(255,255,255),font=font)
@@ -143,7 +143,7 @@ def createCircleEntryImageLeftOnly(basic_metrics, team):
     draw.text((1440, 164),str(basic_metrics['ce']['5']['gso']),(255,255,255),font=font)
     draw.text((1440, 205),str(basic_metrics['ce']['5']['pp_win']),(255,255,255),font=font)
     draw.text((1440, 246),str(0),(255,255,255),font=font)
-    draw.text((1440, 287),str(basic_metrics['ce']['5']['loss']),(255,255,255),font=font)
+    draw.text((1440, 287),str(basic_metrics['ce']['5']['lost']),(255,255,255),font=font)
 
     # arrows
     font = ImageFont.truetype("./assets/images/OpenSans-Semibold.ttf", 35)
